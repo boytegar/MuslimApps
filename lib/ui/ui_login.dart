@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/helper/SizeConfig.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:market_app/ui/ui_main.dart';
 //ctrl + space for show suggestion
 
 class LoginUi extends StatelessWidget {
@@ -22,9 +23,9 @@ class _LoginPageState extends State<LoginPage> {
   bool _value1 = false;
 
   final List<IconData> icons = [
-    Icons.sentiment_very_dissatisfied,
-    Icons.home,
-    Icons.drafts
+    FontAwesomeIcons.facebook,
+    FontAwesomeIcons.google,
+    FontAwesomeIcons.mailBulk
   ];
 
   @override
@@ -45,22 +46,44 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  void routeReplacement(){
+    Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context) {
+        return MainUi();
+      }
+    ));
+  }
+
   Widget _entryField(double ratios, String title, bool isPassword) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(3 * ratios)),
-          border: Border.all(width: 1, color: Colors.black12),
-          color: Colors.white),
+      margin: EdgeInsets.only(bottom: 10),
+      // decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.all(Radius.circular(3 * ratios)),
+      //     border: Border.all(width: 1, color: Colors.black12),
+      //     color: Colors.white),
       child: TextField(
           controller: (isPassword) ? passController : emailController,
-          style: new TextStyle(fontSize: 6 * ratios, color: Colors.black),
+          style: new TextStyle(fontSize: 5 * ratios, color: Colors.black),
           obscureText: isPassword,
           decoration: InputDecoration(
-              prefixIcon: (isPassword) ? Icon(Icons.lock) : Icon(Icons.mail),
-              border: InputBorder.none,
+              prefixIcon: (isPassword)
+                  ? Icon(
+                      Icons.lock,
+                      color: Color(0xffF5A625),
+                    )
+                  : Icon(
+                      Icons.mail,
+                      color: Color(0xffEC6059),
+                    ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  )),
               // fillColor: Color(0xfff3f3f4),
-              labelText: title,
+              //  labelText: title,
+              fillColor: Colors.white,
+              hintText: title,
               filled: true)),
     );
   }
@@ -82,9 +105,11 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(ratio * 4),
                 child: new IconTheme(
                   data: new IconThemeData(color: Colors.white),
-                  child: new Icon(Icons.add),
+                  child: new Icon(FontAwesomeIcons.facebookF),
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  setState(() {});
+                }),
           ),
         ),
         SizedBox(
@@ -103,9 +128,11 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(ratio * 4),
                 child: new IconTheme(
                   data: new IconThemeData(color: Colors.white),
-                  child: new Icon(Icons.transfer_within_a_station),
+                  child: new Icon(FontAwesomeIcons.google),
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  setState(() {});
+                }),
           ),
         ),
         SizedBox(
@@ -124,9 +151,11 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(ratio * 4),
                 child: new IconTheme(
                   data: new IconThemeData(color: Colors.white),
-                  child: new Icon(Icons.person),
+                  child: new Icon(FontAwesomeIcons.twitter),
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  setState(() {});
+                }),
           ),
         ),
       ],
@@ -138,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
       minWidth: double.infinity,
       child: RaisedButton(
         elevation: 5,
-        onPressed: subtractNumbers,
+        onPressed: routeReplacement,
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(ratio * 3),
@@ -148,14 +177,14 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: ratio * 2,
+              height: ratio * 1,
             ),
             new Text(
               "Login",
-              style: TextStyle(fontSize: ratio * 7),
+              style: TextStyle(fontSize: ratio * 6),
             ),
             SizedBox(
-              height: ratio * 2,
+              height: ratio * 1,
             ),
           ],
         ),
@@ -185,14 +214,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Text(
                   "Remember Me",
-                  style: TextStyle(color: Theme.of(context).primaryColor),
+                  style: TextStyle(color: Colors.black26),
                 ),
               ],
             ),
           ),
-          Text(
-            "Forgot Password?",
-            style: TextStyle(color: Theme.of(context).primaryColor),
+          GestureDetector(
+            onTap: () {},
+            child: Text(
+              "Forgot Password?",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
           )
         ],
       ),
@@ -211,38 +243,54 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 30),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom/2.5),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            _entryField(SizeConfig.screenRatio, "title", false),
-                            _entryField(SizeConfig.screenRatio, "Password", true),
-                          ],
-                        ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom:
+                              MediaQuery.of(context).viewInsets.bottom / 2.5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          _entryField(
+                              SizeConfig.screenRatio, "Username", false),
+                          _entryField(SizeConfig.screenRatio, "Password", true),
+                        ],
                       ),
-                      _infos(SizeConfig.screenRatio),
-                      _loginBtn(SizeConfig.screenRatio),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        "OR CONNECTED",
-                        style: TextStyle(color: Colors.black12),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      _listBtn(SizeConfig.screenRatio)
-                    ],
-                  ),
+                    ),
+                    _infos(SizeConfig.screenRatio),
+                    _loginBtn(SizeConfig.screenRatio),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "OR CONNECTED",
+                      style: TextStyle(color: Colors.black12, fontSize: 12),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _listBtn(SizeConfig.screenRatio),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Dont Have Account? Click Here",
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        )),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
-            
+              ),
             ),
           ),
           Align(
