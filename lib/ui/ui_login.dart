@@ -22,11 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passController;
   bool _value1 = false;
 
-  final List<IconData> icons = [
-    FontAwesomeIcons.facebook,
-    FontAwesomeIcons.google,
-    FontAwesomeIcons.mailBulk
-  ];
 
   @override
   void initState() {

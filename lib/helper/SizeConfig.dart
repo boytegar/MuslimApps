@@ -13,6 +13,9 @@ class SizeConfig {
   static double safeBlockHorizontal;
   static double safeBlockVertical;
   static double screenRatio;
+  static double paddingTop;
+  static double paddingBot;
+
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -21,6 +24,9 @@ class SizeConfig {
     blockSizeHorizontal = screenWidth / 100;
     blockSizeVertical = screenHeight / 100;
     screenRatio = _mediaQueryData.devicePixelRatio;
+    paddingTop = _mediaQueryData.padding.top;
+    paddingBot = _mediaQueryData.padding.bottom;
+
 
     _safeAreaHorizontal = _mediaQueryData.padding.left + _mediaQueryData.padding.right;
     _safeAreaVertical = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
