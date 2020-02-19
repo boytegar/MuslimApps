@@ -34,7 +34,7 @@ class _HomeUiState extends State<HomeUi> {
   ];
 
   List<ButtonMenu> _btn_list_two = [
-    ButtonMenu(1, 'Daily Duas',
+    ButtonMenu(1, 'Duas',
         Icon(FontAwesomeIcons.prayingHands, color: Color(0xff717DF8),
         )
     ),
@@ -184,19 +184,48 @@ class _HomeUiState extends State<HomeUi> {
       ),
       child: Container(
         width: double.infinity,
-        height: ratio*70,
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-            image: AssetImage("assets/images/bg_daily.jpg"),
-            fit: BoxFit.cover,
-          ),
+          gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Theme
+                  .of(context)
+                  .primaryColor, Color(0xff74C6EF)])
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+
           children: <Widget>[
-            Text("COK")
+            Container(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white30,
+              ),
+              child: Text("Surah Al-Fatihah 7", style: TextStyle(
+                  fontSize: ratio * 4,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),),
+            ),
+            SizedBox(height: ratio * 9,),
+            Center(
+              child: Text(
+                "الْأَخِلَّاءُ يَوْمَئِذٍ بَعْضُهُمْ لِبَعْضٍ عَدُوٌّ إِلَّا الْمُتَّقِينَ",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: ratio * 8,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),),
+            ),
+            SizedBox(height: ratio * 7,),
+            Center(
+                child: Text(
+              "Teman-teman akrab pada hari itu sebagiannya menjadi musuh bagi sebagian yang lain kecuali orang-orang yang bertakwa.\n",
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: ratio * 5, color: Colors.white),))
           ],
 
         ),
@@ -217,15 +246,18 @@ class _HomeUiState extends State<HomeUi> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: SizeConfig.paddingTop,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("TODAY", style: TextStyle(color: Colors.black54,
-                    fontSize: ratio * 10,
-                    fontWeight: FontWeight.bold),),
-                Text("Bandung",
-                  style: TextStyle(color: Colors.black26, fontSize: ratio * 8),)
-              ],
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text("TODAY", style: TextStyle(color: Colors.black54,
+                      fontSize: ratio * 8,
+                      fontWeight: FontWeight.bold),),
+                  Text("Bandung",
+                    style: TextStyle(color: Colors.black26, fontSize: ratio * 6),)
+                ],
+              ),
             ),
             SizedBox(height: ratio * 4,),
             Card(
