@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:market_app/helper/SizeConfig.dart';
 import 'package:market_app/model/ButtonMenu.dart';
+import 'package:market_app/ui/detail/ui_mosque.dart';
+import 'package:market_app/ui/detail/ui_pray.dart';
+import 'package:market_app/ui/detail/ui_qibla.dart';
+import 'package:market_app/ui/detail/ui_quran.dart';
 
 class HomeUi extends StatefulWidget {
   @override
@@ -15,43 +19,53 @@ class _HomeUiState extends State<HomeUi> {
   bool mute = true;
 
   List<ButtonMenu> _btn_list_one = [
-    ButtonMenu(1, 'Prayer Time',
+    ButtonMenu(0, 'Prayer Time',
         Icon(FontAwesomeIcons.mosque, color: Color(0xffF65D53),
         )
     ),
-    ButtonMenu(2, 'Al-Quraan',
+    ButtonMenu(1, 'Al-Quraan',
         Icon(FontAwesomeIcons.quran, color: Color(0xffE0A84E),
         )
     ),
-    ButtonMenu(3, 'Qibla',
+    ButtonMenu(2, 'Qibla',
         Icon(FontAwesomeIcons.kaaba, color: Color(0xff81CD2D),
         )
     ),
-    ButtonMenu(4, 'Mosque',
+    ButtonMenu(3, 'Mosque',
         Icon(FontAwesomeIcons.placeOfWorship, color: Color(0xff6096FC),
         )
     ),
   ];
 
   List<ButtonMenu> _btn_list_two = [
-    ButtonMenu(1, 'Duas',
+    ButtonMenu(0, 'Duas',
         Icon(FontAwesomeIcons.prayingHands, color: Color(0xff717DF8),
         )
     ),
-    ButtonMenu(2, 'Zakat',
+    ButtonMenu(1, 'Zakat',
         Icon(FontAwesomeIcons.calculator, color: Color(0xffF16F72),
         )
     ),
-    ButtonMenu(3, 'Hadist',
+    ButtonMenu(2, 'Hadist',
         Icon(FontAwesomeIcons.book, color: Color(0xff0FA4C6),
         )
     ),
-    ButtonMenu(4, 'Soon',
-        Icon(FontAwesomeIcons.exclamation, color: Color(0xff6096FC),
+    ButtonMenu(3, 'Soon',
+        Icon(FontAwesomeIcons.exclamation, color: Colors.purpleAccent,
         )
     ),
   ];
 
+
+  void _navigateBtnOne(int pos) async {
+    List<Widget>  pages = [PrayUi(), QuranUi(), QiblaUi(), MosqueUi()];
+    Navigator.of(context).push(new MaterialPageRoute<Null>(
+        builder: (BuildContext context) {
+          return pages[pos];
+        },
+        fullscreenDialog: true
+    ));
+  }
 
   @override
   void initState() {
@@ -154,7 +168,7 @@ class _HomeUiState extends State<HomeUi> {
 
   Widget _btnMenu(int id, Icon icons, String name, double ratio) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => _navigateBtnOne(id),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

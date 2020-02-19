@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/helper/SizeConfig.dart';
-import 'package:market_app/ui/ui_date.dart';
-import 'package:market_app/ui/ui_home.dart';
-import 'package:market_app/ui/ui_notifications.dart';
-import 'package:market_app/ui/ui_profile.dart';
+import 'package:market_app/ui/main/ui_date.dart';
+import 'package:market_app/ui/main/ui_home.dart';
+import 'package:market_app/ui/main/ui_notifications.dart';
+import 'package:market_app/ui/main/ui_profile.dart';
 import 'package:flutter/services.dart';
 
 class MainUi extends StatefulWidget {

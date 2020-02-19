@@ -9,14 +9,11 @@ class DateUi extends StatefulWidget {
   _DateUiState createState() => _DateUiState();
 }
 
-
 class _DateUiState extends State<DateUi> {
-
   DateTime _curDate = DateTime.now();
   List<String> data_widget = [];
 
 //dd, '/', mm, '/', yyyy, ' ', HH, ':', nn
-
 
   Widget _CalendarUi(double ratio) {
     return CalendarCarousel<Event>(
@@ -31,16 +28,15 @@ class _DateUiState extends State<DateUi> {
           _curDate = dateTime;
         });
       },
-    //  minSelectedDate: DateTime.now(),
+      //  minSelectedDate: DateTime.now(),
 //      maxSelectedDate: ,
+      firstDayOfWeek: 1,
       daysHaveCircularBorder: false,
       selectedDayBorderColor: Colors.white,
       todayBorderColor: Colors.white,
       todayButtonColor: Colors.white,
-      weekendTextStyle: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold
-      ),
+      weekendTextStyle:
+          TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       prevDaysTextStyle: TextStyle(color: Color(0x88ffffff)),
       nextDaysTextStyle: TextStyle(color: Color(0x88ffffff)),
 
@@ -51,27 +47,17 @@ class _DateUiState extends State<DateUi> {
         borderRadius: new BorderRadius.circular(18.0),
       ),
 
-      markedDateMoreCustomDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10)
-      ),
+
+      markedDateMoreCustomDecoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(10)),
       selectedDayTextStyle: TextStyle(color: Colors.white),
-      weekdayTextStyle: TextStyle(
-          color: Colors.white
-      ),
-      todayTextStyle: TextStyle(
-          color: Theme
-              .of(context)
-              .primaryColor
-      ),
-      daysTextStyle: TextStyle(
-          color: Colors.white
-      ),
+      weekdayTextStyle: TextStyle(color: Colors.white),
+      todayTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+      daysTextStyle: TextStyle(color: Colors.white),
       iconColor: Colors.white,
       headerTextStyle: TextStyle(color: Colors.white, fontSize: ratio * 7),
 
-      onDayLongPressed: (DateTime dateTime) {
-
-      },
+      onDayLongPressed: (DateTime dateTime) {},
     );
   }
 
@@ -84,30 +70,29 @@ class _DateUiState extends State<DateUi> {
   }
 
   Widget _listAct(double ratio, String text) {
-    return Card(
-    //  elevation: 1,
-      shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-      child: Container(
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10)
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(text,
-              style: TextStyle(fontSize: ratio * 5, color: Colors.black45),),
-            SizedBox(height: 10,),
-            Text(
-              "Lorem Ipsum lolwh wkent hfksjda whewken glaks hwelksm qkenqwus dkadsn",
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: ratio * 5, color: Colors.black87),)
-          ],
-        ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: 11),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(fontSize: ratio * 5, color: Colors.black45),
+          ),
+          SizedBox(
+            height: ratio * 5,
+          ),
+          Text(
+            "Lorem Ipsum lolwh wkent hfksjda whewken glaks hwelksm qkenqwus dkadsn",
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: ratio * 5, color: Colors.black87),
+          )
+        ],
       ),
     );
   }
@@ -121,20 +106,30 @@ class _DateUiState extends State<DateUi> {
 //      data_widget.add(_curDate.toString()+" = "+i.toString());
 //    }
     return Container(
-      color: Color(0xffF9F9FB),
+      color: Color(0xffF7F6F9),
       margin: EdgeInsets.all(ratio * 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: SizeConfig.paddingTop,),
-          SizedBox(height: 4,),
+          SizedBox(
+            height: SizeConfig.paddingTop,
+          ),
+          SizedBox(
+            height: 4,
+          ),
           Container(
             margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: Text("CALENDAR", style: TextStyle(color: Colors.black54,
-                fontSize: ratio * 8,
-                fontWeight: FontWeight.bold),),
+            child: Text(
+              "CALENDAR",
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: ratio * 8,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
@@ -146,9 +141,10 @@ class _DateUiState extends State<DateUi> {
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: [Theme
-                          .of(context)
-                          .primaryColor, Color(0xff74C6EF)])),
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Color(0xff74C6EF)
+                      ])),
               padding: EdgeInsets.all(10),
               child: _CalendarUi(ratio),
             ),
