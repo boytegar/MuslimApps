@@ -9,14 +9,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-//    return MultiBlocProvider(
-//      providers: [
-//        BlocProvider<QuranBloc>(
-//          create: (BuildContext context) => QuranBloc(),
-//        ),
-//      ],
-//      child:
-      return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<QuranBloc>(
+          create: (BuildContext context) => QuranBloc(),
+        ),
+      ],
+      child: MaterialApp(
         title: 'Flutter Demod',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -27,6 +26,8 @@ class MyApp extends StatelessWidget {
         home: Container(
             height: double.infinity,
             width: double.infinity,
-            child: LoginUi()),);
+            child: LoginUi()),
+      )
+    );
   }
 }

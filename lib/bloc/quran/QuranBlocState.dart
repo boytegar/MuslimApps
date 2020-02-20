@@ -15,3 +15,11 @@ class GetListState extends QuranBlocState{
   @override
   List<Object> get props => [quran];
 }
+
+class InitQuranState extends QuranBlocState{
+
+
+  //overide this method as base class extends equatable and pass property inside props list
+  @override
+  List<Object> get props => [];
+}

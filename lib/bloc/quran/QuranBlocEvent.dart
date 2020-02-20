@@ -6,7 +6,7 @@ abstract class QuranBLocEvent extends Equatable{
 
 
 
-class GetListQuranSelect extends QuranBLocEvent{
+class GetListQuranEvent extends QuranBLocEvent{
 
   @override
   List<Object> get props => [];

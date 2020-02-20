@@ -8,24 +8,21 @@ import 'package:market_app/request/base_request.dart';
 
 class QuranBloc extends Bloc<QuranBLocEvent, QuranBlocState>{
 
-  //Set Initial State of Counter Bloc by return the LatestCounterState Object with newCounterValue = 0
-
-
-
   @override
-  QuranBlocState get initialState => GetListState(quran: null);
+  QuranBlocState get initialState => InitQuranState();
 
   @override
   Stream<QuranBlocState> mapEventToState(QuranBLocEvent event) async*{
     final dio = Dio(); // Provide a dio instance
     final client = RestClient(dio);
-    Quran quran;
+   // Quran quran;
 
-    client.getListQuran().then((it) =>
-    (quran = it)
-    );
-    if(event is GetListQuranSelect){
-      Quran currentQuran = quran;
+//    client.getListQuran().then((it) =>
+//  //  (quran = it)
+//        print(it.status.toString())
+//    );
+    if(event is GetListQuranEvent){
+      Quran currentQuran = await client.getListQuran();
       yield GetListState(quran: currentQuran);
 
     }
