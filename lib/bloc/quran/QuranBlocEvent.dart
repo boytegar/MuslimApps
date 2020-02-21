@@ -11,3 +11,8 @@ class GetListQuranEvent extends QuranBLocEvent{
   @override
   List<Object> get props => [];
 }
+class initQuranEvent extends QuranBLocEvent{
+
+  @override
+  List<Object> get props => [];
+}

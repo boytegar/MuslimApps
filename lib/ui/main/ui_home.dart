@@ -1,7 +1,14 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:market_app/bloc/home/bloc.dart';
 import 'package:market_app/helper/SizeConfig.dart';
 import 'package:market_app/model/ButtonMenu.dart';
+import 'package:market_app/model/DetailQuran.dart';
+import 'package:market_app/model/QuranAcak.dart';
 import 'package:market_app/ui/detail/ui_mosque.dart';
 import 'package:market_app/ui/detail/ui_pray.dart';
 import 'package:market_app/ui/detail/ui_qibla.dart';
@@ -57,6 +64,24 @@ class _HomeUiState extends State<HomeUi> {
   ];
 
 
+  HomeBloc _homeBloc;
+
+  String ayat = "";
+  
+  @override
+  void initState() {
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _homeBloc?.close();
+  }
+
+  
+
   void _navigateBtnOne(int pos) async {
     List<Widget>  pages = [PrayUi(), QuranUi(), QiblaUi(), MosqueUi()];
     Navigator.of(context).push(new MaterialPageRoute<Null>(
@@ -67,15 +92,7 @@ class _HomeUiState extends State<HomeUi> {
     ));
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   //Banner Top
   Widget _topBanner(double ratio) {
@@ -190,7 +207,7 @@ class _HomeUiState extends State<HomeUi> {
     );
   }
 
-  Widget _infoBottom(double ratio){
+  Widget _infoBottom(double ratio, QuranAcak quran){
     return Card(
       elevation: 1,
       shape:  RoundedRectangleBorder(
@@ -220,26 +237,33 @@ class _HomeUiState extends State<HomeUi> {
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white30,
               ),
-              child: Text("Surah Al-Fatihah 7", style: TextStyle(
+              child: Text("${quran.surat.nama} ${quran.surat.nomor}", style: TextStyle(
                   fontSize: ratio * 4,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),),
             ),
             SizedBox(height: ratio * 9,),
             Center(
-              child: Text(
-                "الْأَخِلَّاءُ يَوْمَئِذٍ بَعْضُهُمْ لِبَعْضٍ عَدُوٌّ إِلَّا الْمُتَّقِينَ",
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: ratio * 8,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),),
+              child: Padding(
+
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  "${quran.acak.ar.teks}َ",
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontSize: ratio * 8,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),),
+              ),
             ),
             SizedBox(height: ratio * 7,),
             Center(
-                child: Text(
-              "Teman-teman akrab pada hari itu sebagiannya menjadi musuh bagi sebagian yang lain kecuali orang-orang yang bertakwa.\n",
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+              "${quran.acak.id.teks}",
               textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: ratio * 5, color: Colors.white),))
+              style: TextStyle(fontSize: ratio * 5, color: Colors.white),),
+                ))
           ],
 
         ),
@@ -247,6 +271,48 @@ class _HomeUiState extends State<HomeUi> {
     );
   }
 
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+
+  Widget MainPage(double ratio, QuranAcak quran){
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: SizeConfig.paddingTop,),
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("TODAY", style: TextStyle(color: Colors.black54,
+                    fontSize: ratio * 8,
+                    fontWeight: FontWeight.bold),),
+                Text("Bandung",
+                  style: TextStyle(color: Colors.black26, fontSize: ratio * 6),)
+              ],
+            ),
+          ),
+          SizedBox(height: ratio * 4,),
+          Card(
+            elevation: ratio,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: _topBanner(ratio),),
+          SizedBox(height: ratio * 10,),
+          _listButtonMenu(ratio),
+          SizedBox(height: ratio*10,),
+          _infoBottom(ratio, quran)
+        ],
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -255,37 +321,21 @@ class _HomeUiState extends State<HomeUi> {
     return Container(
       color: Color(0xffF9F9FB),
       margin: EdgeInsets.all(ratio * 5),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: SizeConfig.paddingTop,),
-            Container(
-              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("TODAY", style: TextStyle(color: Colors.black54,
-                      fontSize: ratio * 8,
-                      fontWeight: FontWeight.bold),),
-                  Text("Bandung",
-                    style: TextStyle(color: Colors.black26, fontSize: ratio * 6),)
-                ],
-              ),
-            ),
-            SizedBox(height: ratio * 4,),
-            Card(
-              elevation: ratio,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: _topBanner(ratio),),
-            SizedBox(height: ratio * 10,),
-            _listButtonMenu(ratio),
-            SizedBox(height: ratio*10,),
-            _infoBottom(ratio)
-          ],
-        ),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        bloc: _homeBloc,
+        builder: (context, state){
+
+          if(state is InitialHomeState){
+            Future.delayed(const Duration(seconds: 3), () {
+              _homeBloc.add(getDataHomeEvent());
+            });
+
+            return buildLoading();
+          }else{
+            QuranAcak quran = (state as getDataHomeState).quran_acak;
+            return MainPage(ratio, quran);
+          }
+        },
       ),
     );
   }

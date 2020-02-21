@@ -7,7 +7,7 @@ abstract class QuranBlocState extends Equatable{
 }
 
 class GetListState extends QuranBlocState{
-  final Quran quran;
+   var quran;
 
   GetListState({this.quran});
 
