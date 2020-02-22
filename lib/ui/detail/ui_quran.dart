@@ -1,11 +1,11 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:market_app/bloc/quran/QuranBloc.dart';
-import 'package:market_app/bloc/quran/QuranBlocEvent.dart';
-import 'package:market_app/bloc/quran/QuranBlocState.dart';
-import 'package:market_app/model/Quran.dart';
-import 'package:market_app/ui/detail/ui_detail_quran.dart';
+import 'package:muslimapps/bloc/quran/QuranBloc.dart';
+import 'package:muslimapps/bloc/quran/QuranBlocEvent.dart';
+import 'package:muslimapps/bloc/quran/QuranBlocState.dart';
+import 'package:muslimapps/model/Quran.dart';
+import 'package:muslimapps/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
 
 class QuranUi extends StatefulWidget {

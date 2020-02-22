@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:market_app/model/DetailQuran.dart';
-import 'package:market_app/model/QuranAcak.dart';
+import 'package:muslimapps/model/DetailQuran.dart';
+import 'package:muslimapps/model/QuranAcak.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -14,9 +14,9 @@ class InitialHomeState extends HomeState {
 class getDataHomeState extends HomeState {
 
   QuranAcak quran_acak;
-  String kota;
 
-  getDataHomeState({this.quran_acak, this.kota});
+
+  getDataHomeState({this.quran_acak});
   @override
-  List<Object> get props => [quran_acak, kota];
+  List<Object> get props => [quran_acak];
 }

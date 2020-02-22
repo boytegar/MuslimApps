@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:market_app/bloc/home/bloc.dart';
-import 'package:market_app/ui/ui_login.dart';
+import 'package:muslimapps/bloc/home/bloc.dart';
+import 'package:muslimapps/ui/ui_login.dart';
 import 'bloc/quran/QuranBloc.dart';
 import 'package:bloc/bloc.dart';
 

@@ -1,7 +1,7 @@
-import 'package:market_app/model/DetailQuran.dart';
-import 'package:market_app/model/ListDetailQuran.dart';
-import 'package:market_app/model/Quran.dart';
-import 'package:market_app/model/QuranAcak.dart';
+import 'package:muslimapps/model/DetailQuran.dart';
+import 'package:muslimapps/model/ListDetailQuran.dart';
+import 'package:muslimapps/model/Quran.dart';
+import 'package:muslimapps/model/QuranAcak.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 

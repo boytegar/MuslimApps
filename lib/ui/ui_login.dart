@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/helper/SizeConfig.dart';
+import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:market_app/ui/ui_main.dart';
+import 'package:muslimapps/ui/ui_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 //ctrl + space for show suggestion
 

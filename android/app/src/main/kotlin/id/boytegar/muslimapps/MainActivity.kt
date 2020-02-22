@@ -1,4 +1,4 @@
-package id.boytegar.market_app
+package id.boytegar.muslimapps
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

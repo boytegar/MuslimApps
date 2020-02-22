@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:market_app/model/Quran.dart';
+import 'package:muslimapps/model/Quran.dart';
 
 //Base class for all the Bloc states
 abstract class QuranBlocState extends Equatable{

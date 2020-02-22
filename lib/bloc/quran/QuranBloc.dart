@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:market_app/bloc/quran/QuranBlocState.dart';
-import 'package:market_app/bloc/quran/QuranBlocEvent.dart';
-import 'package:market_app/model/Quran.dart';
-import 'package:market_app/request/base_request.dart';
+import 'package:muslimapps/bloc/quran/QuranBlocState.dart';
+import 'package:muslimapps/bloc/quran/QuranBlocEvent.dart';
+import 'package:muslimapps/model/Quran.dart';
+import 'package:muslimapps/request/base_request.dart';
 
 
 class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{

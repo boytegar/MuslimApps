@@ -2,7 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:market_app/helper/SizeConfig.dart';
+import 'package:muslimapps/helper/SizeConfig.dart';
 
 class DateUi extends StatefulWidget {
   @override

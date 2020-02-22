@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:market_app/bloc/home/bloc.dart';
-import 'package:market_app/helper/SizeConfig.dart';
-import 'package:market_app/model/ButtonMenu.dart';
-import 'package:market_app/model/QuranAcak.dart';
-import 'package:market_app/ui/detail/ui_mosque.dart';
-import 'package:market_app/ui/detail/ui_pray.dart';
-import 'package:market_app/ui/detail/ui_qibla.dart';
-import 'package:market_app/ui/detail/ui_quran.dart';
+import 'package:muslimapps/bloc/home/bloc.dart';
+import 'package:muslimapps/helper/SizeConfig.dart';
+import 'package:muslimapps/model/ButtonMenu.dart';
+import 'package:muslimapps/model/QuranAcak.dart';
+import 'package:muslimapps/ui/detail/ui_mosque.dart';
+import 'package:muslimapps/ui/detail/ui_pray.dart';
+import 'package:muslimapps/ui/detail/ui_qibla.dart';
+import 'package:muslimapps/ui/detail/ui_quran.dart';
 
 
 class HomeUi extends StatefulWidget {
@@ -24,6 +24,10 @@ class _HomeUiState extends State<HomeUi> {
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   //value
   bool mute = true;
+  String city = "sedang mengambil lokasi";
+  Position _nowPosition;
+
+
 
   List<ButtonMenu> _btn_list_one = [
     ButtonMenu(0, 'Prayer Time',
@@ -71,6 +75,7 @@ class _HomeUiState extends State<HomeUi> {
   @override
   void initState() {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _getCurrentLocation();
     super.initState();
   }
 
@@ -103,11 +108,9 @@ class _HomeUiState extends State<HomeUi> {
   
 
   void _navigateBtnOne(int pos) async {
-    List<Widget>  pages = [PrayUi(), QuranUi(), QiblaUi(), MosqueUi()];
-    Navigator.of(context).push(new MaterialPageRoute<Null>(
-        builder: (BuildContext context) {
-          return pages[pos];
-        },
+    List<Widget>  pages = [PrayUi(), QuranUi(), QiblaUi(), MosqueUi(text: [_nowPosition.latitude, _nowPosition.longitude],)];
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (context) => pages[pos],
         fullscreenDialog: true
     ));
   }
@@ -309,22 +312,23 @@ class _HomeUiState extends State<HomeUi> {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
-
       Placemark place = p[0];
+//      print(place.country);
+//      print(place.position);
+//      print(place.locality);
+//      print(place.administrativeArea);
+//      print(place.postalCode);
+//      print(place.name);
+//      print(place.subAdministrativeArea);
+//      print(place.isoCountryCode);
+//      print(place.subLocality);
+//      print(place.subThoroughfare);
+//      print(place.thoroughfare);
 
-   //   return "${place.locality}";
-
-      print(place.country);
-      print(place.position);
-      print(place.locality);
-      print(place.administrativeArea);
-      print(place.postalCode);
-      print(place.name);
-      print(place.subAdministrativeArea);
-      print(place.isoCountryCode);
-      print(place.subLocality);
-      print(place.subThoroughfare);
-      print(place.thoroughfare);
+      setState(() {
+        _nowPosition = _currentPosition;
+        city = place.subAdministrativeArea;
+      });
 
       //  "${place.locality}, ${place.postalCode}, ${place.country}";
 
@@ -334,7 +338,7 @@ class _HomeUiState extends State<HomeUi> {
   }
 
 
-  Widget MainPage(double ratio, QuranAcak quran, String kota){
+  Widget MainPage(double ratio, QuranAcak quran) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -350,7 +354,7 @@ class _HomeUiState extends State<HomeUi> {
                     fontWeight: FontWeight.bold),),
                 GestureDetector(
                   onTap: ()=> _getCurrentLocation(),
-                  child: Text(kota,
+                  child: Text(city,
                     style: TextStyle(color: Colors.black26, fontSize: ratio * 6),),
                 )
               ],
@@ -392,10 +396,9 @@ class _HomeUiState extends State<HomeUi> {
             return buildLoading();
           }else{
             QuranAcak quran = (state as getDataHomeState).quran_acak;
-            String kota = (state as getDataHomeState).kota;
+
             print(quran);
-            print(kota);
-            return MainPage(ratio, quran, kota);
+            return MainPage(ratio, quran);
           }
         },
       ),
