@@ -10,7 +10,7 @@ import 'package:market_app/request/base_request.dart';
 class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
 
   @override
-  QuranBlocState get initialState => this.initialState ?? InitQuranState();
+  QuranBlocState get initialState => super.initialState ?? InitQuranState();
 
   @override
   Stream<QuranBlocState> mapEventToState(QuranBLocEvent event) async*{

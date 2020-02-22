@@ -16,6 +16,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
+
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demod',
+        title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           hintColor: Color(0xffE4E4E4),

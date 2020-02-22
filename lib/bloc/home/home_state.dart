@@ -14,8 +14,9 @@ class InitialHomeState extends HomeState {
 class getDataHomeState extends HomeState {
 
   QuranAcak quran_acak;
+  String kota;
 
-  getDataHomeState({this.quran_acak});
+  getDataHomeState({this.quran_acak, this.kota});
   @override
-  List<Object> get props => [quran_acak];
+  List<Object> get props => [quran_acak, kota];
 }

@@ -1,9 +1,11 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/bloc/quran/QuranBloc.dart';
 import 'package:market_app/bloc/quran/QuranBlocEvent.dart';
 import 'package:market_app/bloc/quran/QuranBlocState.dart';
 import 'package:market_app/model/Quran.dart';
+import 'package:market_app/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
 
 class QuranUi extends StatefulWidget {
@@ -14,7 +16,6 @@ class QuranUi extends StatefulWidget {
 class _QuranUiState extends State<QuranUi> {
 
   QuranBloc _quranBloc;
-
   String ayat = "";
 
   @override
@@ -31,6 +32,14 @@ class _QuranUiState extends State<QuranUi> {
     super.initState();
   }
 
+  void _navigateToDetail(String nomor, String ayat)async{
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailQuranUi(text: [nomor, ayat], ),
+          fullscreenDialog: true
+        ));
+  }
 
   Widget ListQuran(Quran quran){
     return RefreshIndicator(
@@ -55,11 +64,7 @@ class _QuranUiState extends State<QuranUi> {
                   color: Colors.white
               ),
               child: ListTile(
-                onTap: () {
-                  setState(() {
-                    ayat = hasil.ayat;
-                  });
-                },
+                onTap: () => _navigateToDetail(hasil.nomor, hasil.ayat),
                 title: Text("${hasil.nama}"),
                 trailing: Text("${hasil.asma}"),
                 leading: Text(
@@ -75,12 +80,12 @@ class _QuranUiState extends State<QuranUi> {
   Widget buildLoading() {
     return Container(
         padding: EdgeInsets.all(25.0),
-        child:Center(
+        child:SingleChildScrollView(
           child: Shimmer.fromColors(
               direction: ShimmerDirection.ltr,
               // period: Duration(seconds:3),
               child: Column(
-                children: [0, 1, 2, 3,4,5,6,7,8]
+                children: [0, 1, 2, 3,4,5,6,7,8,9,10]
                     .map((_) => Container(
                   margin: EdgeInsets.only(bottom: 20),
                       child: Row(

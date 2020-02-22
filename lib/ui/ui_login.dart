@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:market_app/helper/SizeConfig.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:market_app/ui/ui_main.dart';
+import 'package:permission_handler/permission_handler.dart';
 //ctrl + space for show suggestion
 
 class LoginUi extends StatelessWidget {
@@ -17,19 +18,34 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-
   String texts = "";
   TextEditingController emailController;
   TextEditingController passController;
   bool _value1 = false;
+  PermissionStatus  status_permission = PermissionStatus.unknown;
 
 
   @override
   void initState() {
     emailController = TextEditingController();
     passController = TextEditingController();
+    runPermission();
     super.initState();
+  }
+
+  void runPermission() async {
+    //req Permission
+    Map<PermissionGroup, PermissionStatus> permissions =
+        await PermissionHandler().requestPermissions([
+      PermissionGroup.location,
+      PermissionGroup.locationAlways,
+      PermissionGroup.locationWhenInUse
+    ]);
+
+    //check Permission
+    //   PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.contacts);
+    //check service
+    // ServiceStatus serviceStatus = await PermissionHandler().checkServiceStatus(PermissionGroup.location);
   }
 
   @override
@@ -43,13 +59,10 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void routeReplacement(){
-
-    Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) {
-        return MainUi();
-      }
-    ));
+  void routeReplacement() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return MainUi();
+    }));
   }
 
   Widget _entryField(double ratios, String title, bool isPassword) {
