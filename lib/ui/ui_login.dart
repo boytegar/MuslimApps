@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:muslimapps/ui/ui_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 //ctrl + space for show suggestion
@@ -68,14 +68,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget _entryField(double ratios, String title, bool isPassword) {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
-      // decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.all(Radius.circular(3 * ratios)),
-      //     border: Border.all(width: 1, color: Colors.black12),
-      //     color: Colors.white),
       child: TextField(
           controller: (isPassword) ? passController : emailController,
           style: new TextStyle(fontSize: 5 * ratios, color: Colors.black),
           obscureText: isPassword,
+          minLines: 1,
           decoration: InputDecoration(
               prefixIcon: (isPassword)
                   ? Icon(
@@ -86,14 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                       Icons.mail,
                       color: Color(0xffEC6059),
                     ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(10.0),
-                  )),
+              //border: InputBorder.none,
+
+//              border: OutlineInputBorder(
+//                  borderSide: BorderSide(color: Colors.blue),
+////                  borderRadius: const BorderRadius.all(
+////                    const Radius.circular(10.0),
+////                  )
+//              ),
               // fillColor: Color(0xfff3f3f4),
               //  labelText: title,
-              fillColor: Colors.white,
+              fillColor: Colors.transparent,
               hintText: title,
               filled: true)),
     );
@@ -175,13 +175,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginBtn(double ratio) {
     return ButtonTheme(
-      minWidth: double.infinity,
+      minWidth: ratio * 110,
       child: RaisedButton(
         elevation: 5,
         onPressed: routeReplacement,
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(ratio * 3),
+          borderRadius: new BorderRadius.circular(ratio * 18),
         ),
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(ratio * 4),
@@ -210,6 +210,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Checkbox(
                   value: _value1,
@@ -274,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                     _infos(SizeConfig.screenRatio),
                     _loginBtn(SizeConfig.screenRatio),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Text(
                       "OR CONNECTED",
@@ -291,8 +292,15 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () {
                           setState(() {});
                         },
-                        child: Text(
-                          "Dont Have Account? Click Here",
+                        child: Text.rich(
+                          TextSpan(
+                            text: "Dont Have Account? ",
+                            children: <TextSpan>[
+                              TextSpan(text: 'Click Here',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                           style:
                               TextStyle(color: Theme.of(context).primaryColor),
                         )),

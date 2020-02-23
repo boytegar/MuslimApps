@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "734294879901",
+    "firebase_url": "https://muslimapps-269014.firebaseio.com",
+    "project_id": "muslimapps-269014",
+    "storage_bucket": "muslimapps-269014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734294879901:android:89f159cf586eae64602e74",
+        "android_client_info": {
+          "package_name": "id.boytegar.muslimapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734294879901-l09b4fd4oifdqrcss1hv4hlgi8rhjs6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBNPgTtJxvSnXdEtGo6xfUGE8cDq1iIuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734294879901-l09b4fd4oifdqrcss1hv4hlgi8rhjs6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

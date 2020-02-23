@@ -8,7 +8,7 @@ class ListAndFP extends StatelessWidget {
     return Column(
       children: <Widget>[
         Text('You can put other Widgets here'),
-       // for (var item in items) Text(item),
+        for (var item in items) Text(item),
       ],
     );
   }

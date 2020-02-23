@@ -26,6 +26,11 @@ dependencies:
   geolocator: ^5.3.0
  # shared_preferences: ^0.5.6+2
   google_maps_flutter: ^0.5.24+1
+  flutter_rating_bar: ^3.0.1+1
+  intl: ^0.16.1
+  url_launcher: ^5.4.2
+  flutter_compass: ^0.3.4
+  firebase_auth: ^0.15.4
   #logger: ^0.8.3
 
   # logger: ^0.8.3
