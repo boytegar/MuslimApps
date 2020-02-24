@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ListDetailQuran.dart';
+part of '../ListDetailQuran.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

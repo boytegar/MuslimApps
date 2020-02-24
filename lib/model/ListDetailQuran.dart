@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'ListDetailQuran.g.dart';
+part 'generate/ListDetailQuran.g.dart';
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class ListDetailQuran extends Equatable {
   Ayat ayat;
   Bahasa bahasa;
@@ -22,7 +22,7 @@ class ListDetailQuran extends Equatable {
   List<Object> get props => [];
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Query {
   String ayat;
   List<int> ayat2;
@@ -44,7 +44,7 @@ class Query {
   Map<String, dynamic> toJson() => _$QueryToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Bahasa {
   List<String> keterangan;
   List<String> proses;
@@ -56,7 +56,7 @@ class Bahasa {
   Map<String, dynamic> toJson() => _$BahasaToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Surat {
   String arti;
   String asma;
@@ -88,7 +88,7 @@ class Surat {
   Map<String, dynamic> toJson() => _$SuratToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Ayat {
   Data sdata;
   List<int> proses;
@@ -100,7 +100,7 @@ class Ayat {
   Map<String, dynamic> toJson() => _$AyatToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Data {
   List<Ar> ar;
   List<Id> id;
@@ -113,7 +113,7 @@ class Data {
   Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Idt {
   String ayat;
   String id;
@@ -126,7 +126,7 @@ class Idt {
   Map<String, dynamic> toJson() => _$IdtToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Ar {
   String ayat;
   String id;
@@ -140,7 +140,7 @@ class Ar {
   Map<String, dynamic> toJson() => _$ArToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Id {
   String ayat;
   String id;

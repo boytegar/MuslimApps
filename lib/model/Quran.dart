@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 //import 'package:json_serializable/json_serializable.dart';
 
-part 'Quran.g.dart';
+part 'generate/Quran.g.dart';
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Quran extends Equatable {
   String status;
   Query query;
@@ -19,7 +19,7 @@ class Quran extends Equatable {
 }
 
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Query {
   String format;
   String surat;
@@ -28,7 +28,7 @@ class Query {
   Map<String, dynamic> toJson() => _$QueryToJson(this);
 }
 
-@JsonSerializable(nullable: false)
+//@JsonSerializable(nullable: false)
 class Hasil {
   String nomor;
   String nama;

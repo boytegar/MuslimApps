@@ -1,9 +1,10 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:muslimapps/bloc/quran/QuranBloc.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocEvent.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocState.dart';
+import 'package:muslimapps/hive_db/ListQuran.dart';
 import 'package:muslimapps/model/Quran.dart';
 import 'package:muslimapps/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,65 +18,54 @@ class _QuranUiState extends State<QuranUi> {
 
   QuranBloc _quranBloc;
   String ayat = "";
+  Widget _title = Text("List Quran");
+  Icon _searchIcon = new Icon(Icons.search);
+  final TextEditingController _filter = new TextEditingController();
+  FocusNode textFocusNode = new FocusNode();
 
   @override
   void dispose() {
-  //  _quranBloc?.close();
+    _quranBloc?.close();
+//    Hive.close();
     super.dispose();
     //_quranBloc.add(initQuranEvent());
-
   }
+
 
   @override
   void initState() {
     _quranBloc = BlocProvider.of<QuranBloc>(context);
+
+    _filter.addListener(() {
+      setState(() {
+        ayat = _filter.text;
+      });
+    });
+
     super.initState();
   }
 
-  void _navigateToDetail(String nomor, String ayat)async{
+  void _navigateToDetail(String nama, String nomor, String ayat, int index) async {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailQuranUi(text: [nomor, ayat], ),
+            builder: (context) => DetailQuranUi(text: [nama, nomor, ayat, index],),
           fullscreenDialog: true
         ));
   }
 
-  Widget ListQuran(Quran quran){
+
+  Widget _listQuran(Box quran){
+
     return RefreshIndicator(
       onRefresh: () async {
         setState(() {
           _quranBloc.add(GetListQuranEvent());
         });
       },
-      child: Container(
-        color: Colors.white10,
-        child: ListView.builder(scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: quran.hasil.length,
-          itemBuilder: (context, index) {
-            Hasil hasil = quran.hasil[index];
-
-            // return Text("${quran.hasil[index].arti}");
-            return Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white
-              ),
-              child: ListTile(
-                onTap: () => _navigateToDetail(hasil.nomor, hasil.ayat),
-                title: Text("${hasil.nama}"),
-                trailing: Text("${hasil.asma}"),
-                leading: Text(
-                  "${hasil.nomor}", style: TextStyle(fontSize: 15),),
-                subtitle: Text(
-                  "${hasil.arti}", style: TextStyle(fontSize: 12),),
-              ),
-            );
-          },),
-      ),
+      child: (ayat == null || ayat == "") ? _noFilter(quran) : _withFilter(quran),
     );
+
   }
   Widget buildLoading() {
     return Container(
@@ -134,26 +124,155 @@ class _QuranUiState extends State<QuranUi> {
     );
   }
 
+  Widget _noFilter(Box quran) {
+
+    return Container(
+        color: Colors.white10,
+        child: ListView.builder(scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: quran.length,
+          itemBuilder: (context, index) {
+            ListQuran hasil = quran.getAt(index);
+            // return Text("${quran.hasil[index].arti}");
+            return Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white
+              ),
+              child: ListTile(
+                onTap: () =>
+                    _navigateToDetail(hasil.nama, hasil.nomor, hasil.ayat, index),
+                title: Text("${hasil.nama}"),
+                trailing: Text("${hasil.asma}"),
+                leading: Text(
+                  "${hasil.nomor}", style: TextStyle(fontSize: 15),),
+                subtitle: Text(
+                  "${hasil.arti}", style: TextStyle(fontSize: 12),),
+              ),
+            );
+          },),
+      );
+  }
+
+  Widget _withFilter(Box quran) {
+    List<ListQuran> _hasils = [];
+
+    for(int i=0; i<quran.length; i++){
+      ListQuran data = quran.getAt(i);
+      if (data.nama.toLowerCase().contains(ayat.toLowerCase())) {
+        _hasils.add(data);
+      }
+    }
+
+
+    return Container(
+      color: Colors.white10,
+      child: ListView.builder(scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: _hasils.length,
+        itemBuilder: (context, index) {
+          ListQuran hasil = _hasils[index];
+          return Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white
+            ),
+            child: ListTile(
+              onTap: () {
+                  _navigateToDetail(hasil.nama, hasil.nomor, hasil.ayat, index);
+                  hasil.nama = "";
+                  hasil..nama = "";
+                  },
+              title: Text("${hasil.nama}"),
+              trailing: Text("${hasil.asma}"),
+              leading: Text(
+                "${hasil.nomor}", style: TextStyle(fontSize: 15),),
+              subtitle: Text(
+                "${hasil.arti}", style: TextStyle(fontSize: 12),),
+            ),
+          );
+        },),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._title = new TextFormField(
+          controller: _filter,
+          focusNode: textFocusNode,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search, color: Colors.white,),
+              hintText: 'Cari Nama Surat ...',
+              hintStyle: TextStyle(color: Colors.white),
+              contentPadding: EdgeInsets.all(10),
+              border: InputBorder.none
+          ),
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search, color: Colors.white,);
+        this._title = new Text('List Quran');
+        //   filteredNames = names;
+        _filter.clear();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text("List Quran"),),
+      appBar: AppBar(title: _title,
+        centerTitle: true,
+        actions: <Widget>[
+          new IconButton(
+            icon: _searchIcon,
+            onPressed: () {
+              FocusScope.of(context).requestFocus(textFocusNode);
+              _searchPressed();
+            },
+          ),
+        ],
+
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         child: BlocBuilder<QuranBloc, QuranBlocState>(
           bloc: _quranBloc,
           builder: (context, state) {
-
             if(state is InitQuranState){
               Future.delayed(const Duration(seconds: 3), () {
                 _quranBloc.add(GetListQuranEvent());
               });
               return buildLoading();
-            }else{
-              Quran quran = (state as GetListState).quran;
-              return ListQuran(quran);
+            } else if (state is GetListState) {
+              var list_quran = Hive.box("list_quran");
+              print("size list ${list_quran.length}");
+              if (list_quran.length == 0 || list_quran.length == null ) {
+                print("masukin");
+                _quranBloc.add(InsertListToDbEvent());
+              } else{
+                print("keluarin");
+                _quranBloc.add(GetListQuranDbEvent());
+              }
+              return Container();
+            }
+            else if(state is getStatusInsertState){
+              _quranBloc.add(GetListQuranDbEvent());
+              return Container();
+            }
+            else {
+              var quran = Hive.box("list_quran");
+              return _listQuran(quran);
             }
 
           },

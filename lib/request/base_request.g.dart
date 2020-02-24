@@ -77,7 +77,7 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'surat/$no/ayat$ayat',
+        'surat/$no/ayat/$ayat',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

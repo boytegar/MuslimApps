@@ -105,17 +105,59 @@ class _HomeUiState extends State<HomeUi> {
 
   }
 
-  
-
   void _navigateBtnOne(int pos) async {
-    List<Widget>  pages = [PrayUi(), QuranUi(), QiblaUi(), MosqueUi(text: [_nowPosition.latitude, _nowPosition.longitude],)];
+
+    List<Widget> pages = [
+      PrayUi(),
+      QuranUi(),
+      QiblaUi(),
+      MosqueUi(text: [_nowPosition.latitude, _nowPosition.longitude],)
+    ];
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (context) => pages[pos],
         fullscreenDialog: true
     ));
   }
 
+  void del() {
+    Navigator.of(context).pop();
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (context) => QuranUi(),
+          fullscreenDialog: true
+      ));
+    });
+  }
 
+  Future<void> _showDialogs() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Rewind and remember'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+                Text('Sedang Mengambil Data Quran'),
+              ],
+            ),
+          ),
+//          actions: <Widget>[
+//            FlatButton(
+//              child: Text('Regret'),
+//              onPressed: () {
+//                Navigator.of(context).pop();
+//              },
+//            ),
+//          ],
+        );
+      },
+    );
+  }
 
   //Banner Top
   Widget _topBanner(double ratio) {

@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
+import 'dart:math' show cos, sqrt, asin;
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:muslimapps/helper/API_KEY.dart';
 import 'package:muslimapps/model/MosquePlace.dart';
-import 'dart:math' show cos, sqrt, asin;
-
 import 'package:url_launcher/url_launcher.dart';
 
 class MosqueUi extends StatefulWidget {
@@ -138,9 +138,18 @@ class _MosqueUiState extends State<MosqueUi> {
 
     return Container(
       width: double.infinity,
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.8),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: Offset(0, 0), // changes position of shadow
+            ),
+          ]
       ),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
@@ -276,17 +285,28 @@ class _MosqueUiState extends State<MosqueUi> {
             ),
             Align(
               alignment: Alignment.topLeft,
-              child: (platform == TargetPlatform.android)? SizedBox(): Container(
+              child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.black45),
-                child: GestureDetector(
-                  onTap: (){},
-                  child: Icon(Icons.arrow_back, color: Colors.white,size: 20,
-                  ),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ]
+                ),
+                child: InkWell(
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(Icons.arrow_back, color: Colors.black, size: 20,
+                    ),
 
+                  ),
                 ),
               ),
             ),
