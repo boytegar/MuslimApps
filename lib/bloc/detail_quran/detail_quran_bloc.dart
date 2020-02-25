@@ -20,8 +20,7 @@ class DetailQuranBloc extends Bloc<DetailQuranEvent, DetailQuranState> {
       var ayat = getDataEvent().ayat;
       Hive.openBox("surat_$n").then((value) =>
           (value.length == 0)?
-          (_downloadData(no, ayat)
-          )
+          _downloadData(no, ayat)
            : false
       );
 
