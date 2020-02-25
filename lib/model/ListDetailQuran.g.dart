@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../ListDetailQuran.dart';
+part of 'ListDetailQuran.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -25,36 +25,84 @@ Map<String, dynamic> _$ListDetailQuranToJson(ListDetailQuran instance) =>
       'surat': instance.surat,
     };
 
-Query _$QueryFromJson(Map<String, dynamic> json) {
-  return Query(
-    ayat: json['ayat'] as String,
-    ayat2: (json['ayat2'] as List).map((e) => e as int).toList(),
-    bahasa: json['bahasa'] as String,
-    bahasa2: (json['bahasa2'] as List).map((e) => e as String).toList(),
-    format: json['format'] as String,
-    surat: json['surat'] as String,
+Ayat _$AyatFromJson(Map<String, dynamic> json) {
+  return Ayat(
+    data_: Data.fromJson(json['data'] as Map<String, dynamic>),
+    proses: (json['proses'] as List).map((e) => e as int).toList(),
   );
 }
 
-Map<String, dynamic> _$QueryToJson(Query instance) => <String, dynamic>{
-      'ayat': instance.ayat,
-      'ayat2': instance.ayat2,
-      'bahasa': instance.bahasa,
-      'bahasa2': instance.bahasa2,
-      'format': instance.format,
-      'surat': instance.surat,
+Map<String, dynamic> _$AyatToJson(Ayat instance) => <String, dynamic>{
+      'data': instance.data_,
+      'proses': instance.proses,
     };
 
-Bahasa _$BahasaFromJson(Map<String, dynamic> json) {
-  return Bahasa(
-    keterangan: (json['keterangan'] as List).map((e) => e as String).toList(),
-    proses: (json['proses'] as List).map((e) => e as String).toList(),
+Data _$DataFromJson(Map<String, dynamic> json) {
+  return Data(
+    ar: (json['ar'] as List)
+        .map((e) => Ar.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    id: (json['id'] as List)
+        .map((e) => Id.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    idt: (json['idt'] as List)
+        .map((e) => Idt.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
-Map<String, dynamic> _$BahasaToJson(Bahasa instance) => <String, dynamic>{
-      'keterangan': instance.keterangan,
-      'proses': instance.proses,
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+      'ar': instance.ar,
+      'id': instance.id,
+      'idt': instance.idt,
+    };
+
+Ar _$ArFromJson(Map<String, dynamic> json) {
+  return Ar(
+    ayat: json['ayat'] as String,
+    id: json['id'] as String,
+    surat: json['surat'] as String,
+    teks: json['teks'] as String,
+  );
+}
+
+Map<String, dynamic> _$ArToJson(Ar instance) => <String, dynamic>{
+      'ayat': instance.ayat,
+      'id': instance.id,
+      'surat': instance.surat,
+      'teks': instance.teks,
+    };
+
+Idt _$IdtFromJson(Map<String, dynamic> json) {
+  return Idt(
+    ayat: json['ayat'] as String,
+    id: json['id'] as String,
+    surat: json['surat'] as String,
+    teks: json['teks'] as String,
+  );
+}
+
+Map<String, dynamic> _$IdtToJson(Idt instance) => <String, dynamic>{
+      'ayat': instance.ayat,
+      'id': instance.id,
+      'surat': instance.surat,
+      'teks': instance.teks,
+    };
+
+Id _$IdFromJson(Map<String, dynamic> json) {
+  return Id(
+    ayat: json['ayat'] as String,
+    id: json['id'] as String,
+    surat: json['surat'] as String,
+    teks: json['teks'] as String,
+  );
+}
+
+Map<String, dynamic> _$IdToJson(Id instance) => <String, dynamic>{
+      'ayat': instance.ayat,
+      'id': instance.id,
+      'surat': instance.surat,
+      'teks': instance.teks,
     };
 
 Surat _$SuratFromJson(Map<String, dynamic> json) {
@@ -87,82 +135,34 @@ Map<String, dynamic> _$SuratToJson(Surat instance) => <String, dynamic>{
       'urut': instance.urut,
     };
 
-Ayat _$AyatFromJson(Map<String, dynamic> json) {
-  return Ayat(
-    sdata: Data.fromJson(json['sdata'] as Map<String, dynamic>),
-    proses: (json['proses'] as List).map((e) => e as int).toList(),
+Bahasa _$BahasaFromJson(Map<String, dynamic> json) {
+  return Bahasa(
+    keterangan: (json['keterangan'] as List).map((e) => e as String).toList(),
+    proses: (json['proses'] as List).map((e) => e as String).toList(),
   );
 }
 
-Map<String, dynamic> _$AyatToJson(Ayat instance) => <String, dynamic>{
-      'sdata': instance.sdata,
+Map<String, dynamic> _$BahasaToJson(Bahasa instance) => <String, dynamic>{
+      'keterangan': instance.keterangan,
       'proses': instance.proses,
     };
 
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return Data(
-    ar: (json['ar'] as List)
-        .map((e) => Ar.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    id: (json['id'] as List)
-        .map((e) => Id.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    idt: (json['idt'] as List)
-        .map((e) => Idt.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
-
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
-      'ar': instance.ar,
-      'id': instance.id,
-      'idt': instance.idt,
-    };
-
-Idt _$IdtFromJson(Map<String, dynamic> json) {
-  return Idt(
+Query _$QueryFromJson(Map<String, dynamic> json) {
+  return Query(
     ayat: json['ayat'] as String,
-    id: json['id'] as String,
+    ayat2: (json['ayat2'] as List).map((e) => e as int).toList(),
+    bahasa: json['bahasa'] as String,
+    bahasa2: (json['bahasa2'] as List).map((e) => e as String).toList(),
+    format: json['format'] as String,
     surat: json['surat'] as String,
-    teks: json['teks'] as String,
   );
 }
 
-Map<String, dynamic> _$IdtToJson(Idt instance) => <String, dynamic>{
+Map<String, dynamic> _$QueryToJson(Query instance) => <String, dynamic>{
       'ayat': instance.ayat,
-      'id': instance.id,
+      'ayat2': instance.ayat2,
+      'bahasa': instance.bahasa,
+      'bahasa2': instance.bahasa2,
+      'format': instance.format,
       'surat': instance.surat,
-      'teks': instance.teks,
-    };
-
-Ar _$ArFromJson(Map<String, dynamic> json) {
-  return Ar(
-    ayat: json['ayat'] as String,
-    id: json['id'] as String,
-    surat: json['surat'] as String,
-    teks: json['teks'] as String,
-  );
-}
-
-Map<String, dynamic> _$ArToJson(Ar instance) => <String, dynamic>{
-      'ayat': instance.ayat,
-      'id': instance.id,
-      'surat': instance.surat,
-      'teks': instance.teks,
-    };
-
-Id _$IdFromJson(Map<String, dynamic> json) {
-  return Id(
-    ayat: json['ayat'] as String,
-    id: json['id'] as String,
-    surat: json['surat'] as String,
-    teks: json['teks'] as String,
-  );
-}
-
-Map<String, dynamic> _$IdToJson(Id instance) => <String, dynamic>{
-      'ayat': instance.ayat,
-      'id': instance.id,
-      'surat': instance.surat,
-      'teks': instance.teks,
     };

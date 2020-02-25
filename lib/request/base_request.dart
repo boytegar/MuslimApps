@@ -16,7 +16,7 @@ abstract class RestClient {
   Future<QuranAcak> getQuranAcak();
   @GET("/surat/{id}")
   Future<DetailQuran> getDetailQuran(@Path("id") String id);
-  @GET("surat/{no}/ayat/{ayat}")
+  @GET("/surat/{no}/ayat/{ayat}")
   Future<ListDetailQuran> getDetailListQuran(@Path("no") String no, @Path("ayat") String ayat);
 }
 

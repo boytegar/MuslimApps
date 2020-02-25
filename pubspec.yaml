@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^0.15.4
   hive: ^1.4.1
   hive_flutter: ^0.3.0+2
+
   #logger: ^0.8.3
 
   # logger: ^0.8.3
@@ -50,6 +51,7 @@ dev_dependencies:
  # json_serializable: ^3.2.5
   flutter_test:
     sdk: flutter
+  progress_dialog: ^1.2.1
 
 
 

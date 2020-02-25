@@ -12,7 +12,7 @@ import 'package:muslimapps/request/base_request.dart';
 class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
 
   @override
-  QuranBlocState get initialState => super.initialState ?? InitQuranState();
+  QuranBlocState get initialState => super.initialState ?? initQuranState();
 
   @override
   Stream<QuranBlocState> mapEventToState(QuranBLocEvent event) async*{
@@ -21,7 +21,7 @@ class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
     var list_quran;
     if(event is GetListQuranEvent){
       await Hive.openBox("list_quran");
-      yield GetListState(quran: "success");
+      yield getListState(quran: "success");
     }
     else if(event is InsertListToDbEvent){
       var data;
@@ -51,7 +51,7 @@ class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
       yield getStatusInsertState(status: data);
     }
     else{
-      yield GetListStateFromDb(list_quran: list_quran);
+      yield getListStateFromDb(list_quran: list_quran);
     }
 
   }

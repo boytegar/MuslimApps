@@ -32,19 +32,6 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     } else {}
   }
 
-//  Future<Position> _getCurrentLocation() async {
-//    geolocator
-//        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-//        .then((Position position) {
-//      return position;
-//      //  _currentPosition = position;
-//    }).catchError((e) {
-//      return 0;
-//    });
-//  }
-
-
-
   @override
   HomeState fromJson(Map<String, dynamic> json) {
     try {

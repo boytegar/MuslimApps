@@ -6,21 +6,21 @@ abstract class QuranBlocState extends Equatable{
 
 }
 
-class GetListState extends QuranBlocState{
+class getListState extends QuranBlocState{
    var quran;
 
-  GetListState({this.quran});
+  getListState({this.quran});
 
   //overide this method as base class extends equatable and pass property inside props list
   @override
   List<Object> get props => [quran];
 }
 
-class GetListStateFromDb extends QuranBlocState{
+class getListStateFromDb extends QuranBlocState{
 
   var list_quran;
 
-  GetListStateFromDb({this.list_quran});
+  getListStateFromDb({this.list_quran});
 
   @override
   List<Object> get props =>[list_quran] ;
@@ -38,7 +38,16 @@ class getStatusInsertState extends QuranBlocState{
 
 }
 
-class InitQuranState extends QuranBlocState{
+class getDetailQuranState extends QuranBlocState{
+
+  var info;
+  getDetailQuranState({this.info});
+  @override
+  List<Object> get props => [info];
+
+}
+
+class initQuranState extends QuranBlocState{
 
   //overide this method as base class extends equatable and pass property inside props list
   @override

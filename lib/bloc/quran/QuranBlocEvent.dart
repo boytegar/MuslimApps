@@ -27,6 +27,19 @@ class InsertListToDbEvent extends QuranBLocEvent{
 
 }
 
+class GetDetailQuranEvent extends QuranBLocEvent{
+
+  @override
+  List<Object> get props => [];
+
+}
+
+class InfoDetailQuranEvent extends QuranBLocEvent{
+
+  @override
+  List<Object> get props => [];
+}
+
 
 class initQuranEvent extends QuranBLocEvent{
 

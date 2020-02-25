@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:muslimapps/bloc/detail_quran/bloc.dart';
 import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
 
@@ -36,24 +38,28 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
 
     return Scaffold(
       //child: Text(widget.text.toString()),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () => Navigator.pop(context),
-            ),
-            title: Container(
-                margin: EdgeInsets.only(top: 5),
-                child: Text(widget.text[0].toString())),
-            centerTitle: true,
-            pinned: true,
-            expandedHeight: 210.0,
-            flexibleSpace: FlexibleSpaceBar(
-              background: _myDetail(),
-            ),
-          ),
-        ],
+      body: BlocBuilder<DetailQuranBloc, DetailQuranState>(
+        builder: (context, state) {
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                title: Container(
+                    margin: EdgeInsets.only(top: 5),
+                    child: Text(widget.text[0].toString())),
+                centerTitle: true,
+                pinned: true,
+                expandedHeight: 210.0,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: _myDetail(),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
