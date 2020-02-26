@@ -23,10 +23,10 @@ class ListDetailQuran extends Equatable{
 }
 @JsonSerializable(nullable: false)
 class Ayat {
-    Data data_;
+    Data data;
     List<int> proses;
 
-    Ayat({this.data_, this.proses});
+    Ayat({this.data, this.proses});
 
     factory Ayat.fromJson(Map<String, dynamic> json) => _$AyatFromJson(json);
 

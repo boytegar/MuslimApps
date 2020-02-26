@@ -9,6 +9,13 @@ class getInitDetailEvent extends DetailQuranEvent{
   List<Object> get props => [];
 }
 
+class openBoxEvent extends DetailQuranEvent{
+  String no;
+  openBoxEvent({this.no});
+  @override
+  List<Object> get props => [no];
+}
+
 class getDataEvent extends DetailQuranEvent{
   String no;
   String ayat;
@@ -19,8 +26,3 @@ class getDataEvent extends DetailQuranEvent{
 
 }
 
-class regetDataEvent extends DetailQuranEvent{
-  @override
-  List<Object> get props => [];
-
-}

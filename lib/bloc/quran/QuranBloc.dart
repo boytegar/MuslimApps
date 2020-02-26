@@ -11,6 +11,8 @@ import 'package:muslimapps/request/base_request.dart';
 
 class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
 
+
+
   @override
   QuranBlocState get initialState => super.initialState ?? initQuranState();
 
@@ -18,43 +20,44 @@ class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
   Stream<QuranBlocState> mapEventToState(QuranBLocEvent event) async*{
     final dio = Dio(); // Provide a dio instance
     final client = RestClient(dio);
-    var list_quran;
+
     if(event is GetListQuranEvent){
       await Hive.openBox("list_quran");
       yield getListState(quran: "success");
     }
     else if(event is InsertListToDbEvent){
-      var data;
-      list_quran =  Hive.box("list_quran");
-      client.getListQuran().then((value) =>
-      (value.status == "ok") ?
-      value.hasil.forEach((element) {
-        ListQuran dats = ListQuran();
-        dats.arti = element.arti;
-        dats.asma = element.asma;
-        dats.ayat = element.ayat;
-        dats.keterangan = element.keterangan;
-        dats.nama = element.nama;
-        dats.name = element.name;
-        dats.nomor = element.nomor;
-        dats.rukuk = element.rukuk;
-        dats.start = element.start;
-        dats.type = element.type;
-        dats.urut = element.urut;
-        dats.status = "false";
-        list_quran.add(dats);
-      }) :
-      (data = "error")
-      ).whenComplete(() =>
-      (data = "success")
-      );
-      yield getStatusInsertState(status: data);
-    }
-    else{
-      yield getListStateFromDb(list_quran: list_quran);
-    }
+      var list_quran =  Hive.box("list_quran");
+      try {
+        if(list_quran.length == 0 ){
+          var fetch_data = await client.getListQuran();
+          fetch_data.hasil.forEach((element) {
+            ListQuran dats = ListQuran();
+            dats.arti = element.arti;
+            dats.asma = element.asma;
+            dats.ayat = element.ayat;
+            dats.keterangan = element.keterangan;
+            dats.nama = element.nama;
+            dats.name = element.name;
+            dats.nomor = element.nomor;
+            dats.rukuk = element.rukuk;
+            dats.start = element.start;
+            dats.type = element.type;
+            dats.urut = element.urut;
+            dats.status = "false";
+            list_quran.add(dats);
+          });
+          yield getListStateFromDb(list_quran_data: list_quran);
+        }else{
+          yield getListStateFromDb(list_quran_data: list_quran);
+        }
+      } catch (e, s) {
+        print(s);
+      }
 
+    }
   }
+
+
 
   @override
   QuranBlocState fromJson(Map<String, dynamic> json) {

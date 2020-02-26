@@ -6,9 +6,6 @@ import 'package:muslimapps/bloc/quran/QuranBloc.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocEvent.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocState.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
-import 'package:muslimapps/model/DetailQuran.dart';
-import 'package:muslimapps/model/ListDetailQuran.dart';
-import 'package:muslimapps/request/base_request.dart';
 import 'package:muslimapps/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -26,7 +23,7 @@ class _QuranUiState extends State<QuranUi> {
   Icon _searchIcon = new Icon(Icons.search);
   final TextEditingController _filter = new TextEditingController();
   FocusNode textFocusNode = new FocusNode();
-
+  Box datas;
 
   @override
   void dispose() {
@@ -48,12 +45,6 @@ class _QuranUiState extends State<QuranUi> {
     super.initState();
   }
 
-  void _navigateToDetail(String nama, String nomor, String ayat, int index) async {
-  Hive.openBox("surat_$nomor").then((value) =>
-  (value.length == 0)? _downloadSurat(nomor, ayat): openPageNavigate(nama, nomor, ayat, index)
-  );
-  }
-
   void openPageNavigate(String nama, String nomor, String ayat, int index){
           Navigator.push(
           context,
@@ -62,12 +53,12 @@ class _QuranUiState extends State<QuranUi> {
                   DetailQuranUi(text: [nama, nomor, ayat, index],),
               fullscreenDialog: true
           ));
+//  _showDialogs();
   }
 
-  Future<void> _showDialogs(String nomor, String ayat) async {
+  Future<void> _showDialogs() async {
     String status = "Belum";
 
-    _downloadSurat(nomor, ayat);
 
     return showDialog<void>(
       context: context,
@@ -79,23 +70,19 @@ class _QuranUiState extends State<QuranUi> {
             child: Center(
               child: ListBody(
                 children: <Widget>[
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
+//                  Center(
+//                    child: CircularProgressIndicator(),
+//                  ),
                   SizedBox(height: 10,),
-                  Text((status == "Download")
-                      ? 'Sedang Mengambil Data Quran'
-                      : (status == "Belum")
-                      ? 'Quran Belum Di Download'
-                      : 'Quran Selesai Di download'),
+                  Text('Sedang Dalam Pembuatan'),
                 ],
               ),
             ),
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text((status == "Mulai") ? 'Download' : 'Selesai'),
-              onPressed: () {},
+              child: Text('OK'),
+              onPressed: () {Navigator.pop(context);},
             ),
 
           ],
@@ -104,72 +91,15 @@ class _QuranUiState extends State<QuranUi> {
     );
   }
 
-  Future<void> _downloadSurat(String no, String ayat) async {
-    final dio = Dio();
-    final client = RestClient(dio);
-    int ay = int.parse(ayat);
-    if (ay <= 10) {
 
-//      ListDetailQuran c = await client.getDetailListQuran(no, "1-$ayat");
-//
-//      for(var i = 0; i<c.ayat.proses.length; i++){
-//        print(c.ayat.data_.ar[i].teks);
-//        print(c.ayat.data_.id[i].teks);
-//        print(c.ayat.data_.idt[i].teks);
-//      }
-
-    await client.getDetailListQuran(no, "1-$ayat").then((value) =>
-    value.ayat.proses.forEach((element) {
-      print(value.ayat.data_.ar[element-1].teks);
-      print(value.ayat.data_.id[element-1].teks);
-      print(value.ayat.data_.idt[element-1].teks);
-    })
-    );
-
-    } else if(ay%10==0){
-      int foo = (ay / 10).floor();
-      for (var i = 0; i < foo; i++) {
-        print(i);
-        await client.getDetailListQuran(no, "${i}1-$ayat")
-            .then((value) =>
-            value.ayat.proses.forEach((element) {
-              print(value.ayat.data_.ar[element-((i*10)+1)].teks);
-              print(value.ayat.data_.id[element-((i*10)+1)].teks);
-              print(value.ayat.data_.idt[element-((i*10)+1)].teks);
-            })
-        )
-            .whenComplete(() =>
-            print("success")
-        );
-      }
-    }
-    else {
-      int foo = (ay / 10).floor();
-      for (var i = 0; i <= foo; i++) {
-        print(i);
-        if(i==foo){
-          i-1;
-        }
-        await client.getDetailListQuran(no, "${i}1-$ayat")
-            .then((value) =>
-            value.ayat.proses.forEach((element) {
-              print(value.ayat.data_.ar[element-((i*10)+1)].teks);
-              print(value.ayat.data_.id[element-((i*10)+1)].teks);
-              print(value.ayat.data_.idt[element-((i*10)+1)].teks);
-            })
-        )
-            .whenComplete(() =>
-           print("success")
-        );
-      }
-    }
-  }
 
   Widget _listQuran(Box quran){
     return RefreshIndicator(
       onRefresh: () async {
         setState(() {
-          _quranBloc.add(GetListQuranEvent());
+          Future.delayed(Duration(seconds: 3), (){
+            _quranBloc.add(InsertListToDbEvent());
+          });
         });
       },
       child: (ayat == null || ayat == "") ? _noFilter(quran) : _withFilter(quran),
@@ -238,7 +168,7 @@ class _QuranUiState extends State<QuranUi> {
       color: Colors.white10,
       child: ListView.builder(scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: quran.length,
+        itemCount: quran. length,
         itemBuilder: (context, index) {
           ListQuran hasil = quran.getAt(index);
           // return Text("${quran.hasil[index].arti}");
@@ -250,7 +180,8 @@ class _QuranUiState extends State<QuranUi> {
             ),
             child: ListTile(
               onTap: () =>
-                  _navigateToDetail(hasil.nama, hasil.nomor, hasil.ayat, index),
+                  //_navigateToDetail(hasil.nama, hasil.nomor, hasil.ayat, index),
+              openPageNavigate(hasil.nama, hasil.nomor, hasil.ayat, index),
               title: Text("${hasil.nama}"),
               trailing: Text("${hasil.asma}"),
               leading: Padding(
@@ -293,7 +224,7 @@ class _QuranUiState extends State<QuranUi> {
             ),
             child: ListTile(
               onTap: () {
-                _navigateToDetail(hasil.nama, hasil.nomor, hasil.ayat, index);
+                openPageNavigate(hasil.nama, hasil.nomor, hasil.ayat, index);
               },
               title: Text("${hasil.nama}"),
               trailing: Text("${hasil.asma}"),
@@ -366,27 +297,18 @@ class _QuranUiState extends State<QuranUi> {
               Future.delayed(const Duration(seconds: 3), () {
                 _quranBloc.add(GetListQuranEvent());
               });
-              return buildLoading();
+
             } else if (state is getListState) {
-              var list_quran = Hive.box("list_quran");
-              print("size list ${list_quran.length}");
-              if (list_quran.length == 0 || list_quran.length == null ) {
-                print("masukin");
-                _quranBloc.add(InsertListToDbEvent());
-              } else{
-                print("keluarin");
-                _quranBloc.add(GetListQuranDbEvent());
-              }
-              return Container();
+              _quranBloc.add(InsertListToDbEvent());
+            } else {
+                datas = (state as getListStateFromDb).list_quran_data;
             }
-            else if(state is getStatusInsertState){
-              _quranBloc.add(GetListQuranDbEvent());
-              return Container();
-            }
-            else {
-              var quran = Hive.box("list_quran");
-              return _listQuran(quran);
-            }
+             if(datas==null){
+               return buildLoading();
+             }else{
+               return _listQuran(datas);
+             }
+
           },
         ),
       ),

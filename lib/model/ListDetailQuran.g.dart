@@ -27,13 +27,13 @@ Map<String, dynamic> _$ListDetailQuranToJson(ListDetailQuran instance) =>
 
 Ayat _$AyatFromJson(Map<String, dynamic> json) {
   return Ayat(
-    data_: Data.fromJson(json['data'] as Map<String, dynamic>),
+    data: Data.fromJson(json['data'] as Map<String, dynamic>),
     proses: (json['proses'] as List).map((e) => e as int).toList(),
   );
 }
 
 Map<String, dynamic> _$AyatToJson(Ayat instance) => <String, dynamic>{
-      'data': instance.data_,
+      'data': instance.data,
       'proses': instance.proses,
     };
 

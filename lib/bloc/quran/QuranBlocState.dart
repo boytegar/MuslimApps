@@ -18,34 +18,17 @@ class getListState extends QuranBlocState{
 
 class getListStateFromDb extends QuranBlocState{
 
-  var list_quran;
+  var list_quran_data;
 
-  getListStateFromDb({this.list_quran});
+  getListStateFromDb({this.list_quran_data});
 
   @override
-  List<Object> get props =>[list_quran] ;
+  List<Object> get props =>[list_quran_data] ;
 
 }
 
-class getStatusInsertState extends QuranBlocState{
 
-  var status;
 
-  getStatusInsertState({this.status});
-
-  @override
-  List<Object> get props =>[status] ;
-
-}
-
-class getDetailQuranState extends QuranBlocState{
-
-  var info;
-  getDetailQuranState({this.info});
-  @override
-  List<Object> get props => [info];
-
-}
 
 class initQuranState extends QuranBlocState{
 

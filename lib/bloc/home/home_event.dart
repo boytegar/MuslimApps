@@ -10,6 +10,7 @@ class getInitHomeEvent extends HomeEvent{
   List<Object> get props => [];
 }
 
+
 class getDataHomeEvent extends HomeEvent{
   @override
   List<Object> get props => [];

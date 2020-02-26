@@ -32,38 +32,46 @@ class _HomeUiState extends State<HomeUi> {
   List<ButtonMenu> _btn_list_one = [
     ButtonMenu(0, 'Prayer Time',
         Icon(FontAwesomeIcons.mosque, color: Color(0xffF65D53),
-        )
+        ),
+        "false"
     ),
     ButtonMenu(1, 'Al-Quraan',
         Icon(FontAwesomeIcons.quran, color: Color(0xffE0A84E),
-        )
+        ),
+      "true"
     ),
     ButtonMenu(2, 'Qibla',
         Icon(FontAwesomeIcons.kaaba, color: Color(0xff81CD2D),
-        )
+        ),
+        "false"
     ),
     ButtonMenu(3, 'Mosque',
         Icon(FontAwesomeIcons.placeOfWorship, color: Color(0xff6096FC),
-        )
+        ),
+        "true"
     ),
   ];
 
   List<ButtonMenu> _btn_list_two = [
     ButtonMenu(0, 'Duas',
         Icon(FontAwesomeIcons.prayingHands, color: Color(0xff717DF8),
-        )
+        ),
+        "false"
     ),
     ButtonMenu(1, 'Zakat',
         Icon(FontAwesomeIcons.calculator, color: Color(0xffF16F72),
-        )
+        ),
+        "false"
     ),
     ButtonMenu(2, 'Hadist',
         Icon(FontAwesomeIcons.book, color: Color(0xff0FA4C6),
-        )
+        ),
+        "false"
     ),
     ButtonMenu(3, 'Soon',
         Icon(FontAwesomeIcons.exclamation, color: Colors.purpleAccent,
-        )
+        ),
+        "false"
     ),
   ];
 
@@ -135,25 +143,25 @@ class _HomeUiState extends State<HomeUi> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Rewind and remember'),
+       //   title: Text('Rewind and remember'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Center(
-                  child: CircularProgressIndicator(),
-                ),
-                Text('Sedang Mengambil Data Quran'),
+//                Center(
+//                  child: CircularProgressIndicator(),
+//                ),
+                Text('Sedang Dalam Pembuatan'),
               ],
             ),
           ),
-//          actions: <Widget>[
-//            FlatButton(
-//              child: Text('Regret'),
-//              onPressed: () {
-//                Navigator.of(context).pop();
-//              },
-//            ),
-//          ],
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         );
       },
     );
@@ -231,22 +239,22 @@ class _HomeUiState extends State<HomeUi> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _btn_list_one.map((item) =>
-                _btnMenu(item.id, item.icon, item.name, ratio)).toList(),
+                _btnMenu(item.id, item.icon, item.name, ratio, item.status)).toList(),
           ),
           const SizedBox(height: 15,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _btn_list_two.map((item) =>
-                _btnMenu(item.id, item.icon, item.name, ratio)).toList(),
+                _btnMenu(item.id, item.icon, item.name, ratio, item.status)).toList(),
           )
         ],
       ),
     );
   }
 
-  Widget _btnMenu(int id, Icon icons, String name, double ratio) {
+  Widget _btnMenu(int id, Icon icons, String name, double ratio, String status) {
     return GestureDetector(
-      onTap: () => _navigateBtnOne(id),
+      onTap: () => (status=="true")?_navigateBtnOne(id) : _showDialogs(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
