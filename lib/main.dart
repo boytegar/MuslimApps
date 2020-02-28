@@ -7,6 +7,7 @@ import 'package:muslimapps/bloc/detail_quran/bloc.dart';
 import 'package:muslimapps/bloc/home/bloc.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
 import 'package:muslimapps/ui/ui_login.dart';
+import 'bloc/detail_quran/detail_quran_repository.dart';
 import 'bloc/quran/QuranBloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -21,7 +22,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
+  DetailQuranRepository _detailQuranRepository = DetailQuranRepository();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeBloc>(
           create: (BuildContext context) => HomeBloc(),
         ),
-        BlocProvider<DetailQuranBloc>(
-          create: (BuildContext context) => DetailQuranBloc(),
-        ),
+//        BlocProvider<DetailQuranBloc>(
+//          create: (BuildContext context) => DetailQuranBloc(detailQuranRepository: _detailQuranRepository),
+//        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:muslimapps/bloc/detail_quran/bloc.dart';
+import 'package:muslimapps/bloc/detail_quran/detail_quran_repository.dart';
 import 'package:muslimapps/helper/SizeConfig.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailQuranUi extends StatefulWidget {
   var text;
 
   DetailQuranUi({Key key, @required this.text}) : super(key: key);
+
 
   @override
   _DetailQuranUiState createState() => _DetailQuranUiState();
@@ -20,7 +23,6 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
   @override
   void initState() {
     _detailQuranBloc = BlocProvider.of<DetailQuranBloc>(context);
-    _detailQuranBloc.initialState;
     super.initState();
   }
 
@@ -30,12 +32,14 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
     super.dispose();
   }
 
+//
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
     return Scaffold(
       //child: Text(widget.text.toString()),
+
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -63,7 +67,9 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
                 SliverAppBar(
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      },
                   ),
                   title: Container(
                       margin: EdgeInsets.only(top: 5),
@@ -83,9 +89,12 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
     );
   }
 
-  Future<void> openBox() async {
-    await Hive.openBox("surat_${widget.text[1]}");
-  }
+//  Future<void> openBox() async {
+//    await Hive.openBox("surat_${widget.text[1]}");
+//  }
+
+
+
 
   Widget ListQuranUi() {
     return CustomScrollView(
@@ -108,6 +117,7 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
       ],
     );
   }
+
 
   Widget _myDetail() {
     return Container(
@@ -142,4 +152,5 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
       ),
     );
   }
+
 }

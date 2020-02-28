@@ -57,35 +57,32 @@ class _QuranUiState extends State<QuranUi> {
   }
 
   Future<void> _showDialogs() async {
-    String status = "Belum";
-
-
-    return showDialog<void>(
+    showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          //  title: Text('Rewind and remember'),
-          content: SingleChildScrollView(
-            child: Center(
-              child: ListBody(
-                children: <Widget>[
-//                  Center(
-//                    child: CircularProgressIndicator(),
-//                  ),
-                  SizedBox(height: 10,),
-                  Text('Sedang Dalam Pembuatan'),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {Navigator.pop(context);},
-            ),
-
-          ],
+      barrierDismissible: false,
+      builder: (context) {
+        String contentText = "Content of Dialog";
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("Title of Dialog"),
+              content: Text(contentText),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancel"),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      contentText = "Changed Content of Dialog";
+                    });
+                  },
+                  child: Text("Change"),
+                ),
+              ],
+            );
+          },
         );
       },
     );

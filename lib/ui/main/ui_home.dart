@@ -43,7 +43,7 @@ class _HomeUiState extends State<HomeUi> {
     ButtonMenu(2, 'Qibla',
         Icon(FontAwesomeIcons.kaaba, color: Color(0xff81CD2D),
         ),
-        "false"
+        "true"
     ),
     ButtonMenu(3, 'Mosque',
         Icon(FontAwesomeIcons.placeOfWorship, color: Color(0xff6096FC),
@@ -93,25 +93,25 @@ class _HomeUiState extends State<HomeUi> {
     _homeBloc?.close();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-
-    switch(state) {
-      case AppLifecycleState.resumed:
-
-        break;
-      case AppLifecycleState.inactive:
-      // Handle this case
-        break;
-      case AppLifecycleState.paused:
-       // _homeBloc?.
-        break;
-      case AppLifecycleState.detached:
-
-        break;
-    }
-
-  }
+//  @override
+//  void didChangeAppLifecycleState(AppLifecycleState state) {
+//
+//    switch(state) {
+//      case AppLifecycleState.resumed:
+//
+//        break;
+//      case AppLifecycleState.inactive:
+//      // Handle this case
+//        break;
+//      case AppLifecycleState.paused:
+//       // _homeBloc?.
+//        break;
+//      case AppLifecycleState.detached:
+//
+//        break;
+//    }
+//
+//  }
 
   void _navigateBtnOne(int pos) async {
 

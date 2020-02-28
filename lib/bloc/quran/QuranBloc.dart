@@ -21,6 +21,10 @@ class QuranBloc extends HydratedBloc<QuranBLocEvent, QuranBlocState>{
     final dio = Dio(); // Provide a dio instance
     final client = RestClient(dio);
 
+    client.getListQuran().then((value) {
+
+    });
+
     if(event is GetListQuranEvent){
       await Hive.openBox("list_quran");
       yield getListState(quran: "success");
