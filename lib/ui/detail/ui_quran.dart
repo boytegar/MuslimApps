@@ -10,6 +10,17 @@ import 'package:muslimapps/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
 
 
+class QuranPageUI extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => QuranBloc(),
+      child: QuranUi(),
+    );
+  }
+}
+
+
 class QuranUi extends StatefulWidget {
   @override
   _QuranUiState createState() => _QuranUiState();
@@ -50,7 +61,7 @@ class _QuranUiState extends State<QuranUi> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  DetailQuranUi(text: [nama, nomor, ayat, index],),
+                  DetailQuranPage(text: [nama, nomor, ayat, index],),
               fullscreenDialog: true
           ));
 //  _showDialogs();

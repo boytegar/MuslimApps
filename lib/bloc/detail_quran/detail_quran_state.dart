@@ -14,6 +14,7 @@ class getDetailQuranState extends DetailQuranState{
   @override
   List<Object> get props => [];
 }
+
 class getListDetailQuranState extends DetailQuranState{
   var list_surat;
   getListDetailQuranState({this.list_surat});

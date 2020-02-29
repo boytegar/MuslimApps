@@ -15,7 +15,7 @@ class _MainUiState extends State<MainUi> {
   int _selectedBottom = 0;
 
   final _listMenu = <Widget>[
-    HomeUi(),
+    HomePageUI(),
     DateUi(),
     NotificationsUi(),
     ProfileUi()

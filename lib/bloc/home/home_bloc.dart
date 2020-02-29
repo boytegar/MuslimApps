@@ -29,7 +29,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
    //   log('data: $kota');
 
       yield getDataHomeState(quran_acak: quran_acak);
-    } else {}
+    }
   }
 
   @override

@@ -16,7 +16,7 @@ class DetailQuranBloc extends HydratedBloc<DetailQuranEvent, DetailQuranState> {
   DetailQuranBloc({this.detailQuranRepository});
 
   @override
-  DetailQuranState get initialState =>  InitialDetailQuranState();
+  DetailQuranState get initialState => super.initialState ?? InitialDetailQuranState();
 
   @override
   Stream<DetailQuranState> mapEventToState(DetailQuranEvent event) async* {
@@ -28,7 +28,7 @@ class DetailQuranBloc extends HydratedBloc<DetailQuranEvent, DetailQuranState> {
         print(s);
         log("ERROR", name: "$e -- $s");
       }
-      yield  getDetailQuranState();
+      yield getDetailQuranState();
     }
     else if(event is getDataEvent){
       var no =event.no;
@@ -36,17 +36,22 @@ class DetailQuranBloc extends HydratedBloc<DetailQuranEvent, DetailQuranState> {
       try {
         var list_ayat = Hive.box("surat_$no");
         if(list_ayat.length == 0){
+          log("NO LIST", name: "0");
           var list = await detailQuranRepository.insertDetailQuran(no, ayat);
           yield getListDetailQuranState(list_surat: list);
 
         }else{
           var list = await detailQuranRepository.getDetailQuran(no);
+          log("HAVE LIST", name: "$list");
           yield getListDetailQuranState(list_surat: list);
         }
       } catch (e, s) {
         log("ERROR", name: "$e -- $s");
         print(s);
       }
+    }else{
+
+      yield getDetailQuranState();
     }
   }
 

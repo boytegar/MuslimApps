@@ -6,6 +6,24 @@ import 'package:muslimapps/bloc/detail_quran/detail_quran_repository.dart';
 import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class DetailQuranPage extends StatelessWidget {
+  DetailQuranRepository _detailQuranRepository = DetailQuranRepository();
+
+  var text;
+
+  DetailQuranPage({Key key, @required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => DetailQuranBloc(detailQuranRepository: _detailQuranRepository),
+      child: DetailQuranUi(text: text),
+    );
+  }
+
+}
+
+
 class DetailQuranUi extends StatefulWidget {
   var text;
 
@@ -38,12 +56,16 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
     SizeConfig().init(context);
 
     return Scaffold(
-      //child: Text(widget.text.toString()),
 
       body: Container(
         height: double.infinity,
         width: double.infinity,
         child: BlocBuilder<DetailQuranBloc, DetailQuranState>(
+          condition: (previous, current) {
+            print(current);
+            print(previous);
+            return false;
+          },
           bloc: _detailQuranBloc,
           builder: (context, state) {
             print(state);
@@ -55,10 +77,12 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
                 });
             }
             else if(state is getDetailQuranState){
+              print("masuk insert");
               _detailQuranBloc.add(getDataEvent(no: widget.text[1].toString(),
                   ayat: widget.text[2].toString()));
             }
             else {
+              print("kelaur insert");
               var list_surat = (state as  getListDetailQuranState).list_surat;
               print(list_surat.length);
             }
@@ -127,7 +151,7 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(child: new Text(
-              "Balance",
+              "-",
               style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',
@@ -135,7 +159,7 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
               )
           ),),
           Container(child: new Text(
-              "\u002420,914.33",
+              "-",
               style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',

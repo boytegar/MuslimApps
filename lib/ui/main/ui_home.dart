@@ -14,6 +14,16 @@ import 'package:muslimapps/ui/detail/ui_qibla.dart';
 import 'package:muslimapps/ui/detail/ui_quran.dart';
 
 
+class HomePageUI extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => HomeBloc(),
+      child: HomeUi(),
+    );
+  }
+}
+
 class HomeUi extends StatefulWidget {
   @override
   _HomeUiState createState() => _HomeUiState();
@@ -26,7 +36,8 @@ class _HomeUiState extends State<HomeUi> {
   bool mute = true;
   String city = "sedang mengambil lokasi";
   Position _nowPosition;
-
+  HomeBloc _homeBloc;
+  String ayat = "";
 
 
   List<ButtonMenu> _btn_list_one = [
@@ -76,9 +87,6 @@ class _HomeUiState extends State<HomeUi> {
   ];
 
 
-  HomeBloc _homeBloc;
-
-  String ayat = "";
   
   @override
   void initState() {
@@ -117,7 +125,7 @@ class _HomeUiState extends State<HomeUi> {
 
     List<Widget> pages = [
       PrayUi(),
-      QuranUi(),
+      QuranPageUI(),
       QiblaUi(),
       MosqueUi(text: [_nowPosition.latitude, _nowPosition.longitude],)
     ];
@@ -166,6 +174,108 @@ class _HomeUiState extends State<HomeUi> {
       },
     );
   }
+
+
+
+  _getCurrentLocation() async {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      print(position.latitude);
+      //  _currentPosition = position;
+      _getAddressFromLatLng(position);
+    }).catchError((e) {
+      return 0;
+    });
+  }
+
+ _getAddressFromLatLng(Position _currentPosition) async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+      Placemark place = p[0];
+//      print(place.country);
+//      print(place.position);
+//      print(place.locality);
+//      print(place.administrativeArea);
+//      print(place.postalCode);
+//      print(place.name);
+//      print(place.subAdministrativeArea);
+//      print(place.isoCountryCode);
+//      print(place.subLocality);
+//      print(place.subThoroughfare);
+//      print(place.thoroughfare);
+
+      setState(() {
+        _nowPosition = _currentPosition;
+        city = place.subAdministrativeArea;
+      });
+
+      //  "${place.locality}, ${place.postalCode}, ${place.country}";
+
+    } catch (e) {
+   //   return "error";
+    }
+  }
+
+
+
+  
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double ratio = SizeConfig.screenRatio;
+
+    return Scaffold(
+      body: Container(
+        color: Color(0xffF9F9FB),
+      margin: EdgeInsets.all(ratio * 5),
+        child: BlocBuilder<HomeBloc, HomeState>(
+            bloc: _homeBloc,
+            builder: (context, state){
+
+              if(state is InitialHomeState){
+                Future.delayed(const Duration(seconds: 3), () {
+                  _homeBloc.add(getDataHomeEvent());
+                });
+
+                return buildLoading();
+              }else{
+                QuranAcak quran = (state as getDataHomeState).quran_acak;
+
+                print(quran);
+                return MainPage(ratio, quran);
+              }
+            },
+          ),
+      ),
+    );
+  }
+
+//  Widget Home(double ratio){
+//    return Container(
+//      color: Color(0xffF9F9FB),
+//      margin: EdgeInsets.all(ratio * 5),
+//      child: BlocBuilder<HomeBloc, HomeState>(
+//        bloc: BlocProvider.of<HomeBloc>(context),
+//        builder: (context, state){
+//
+//          if(state is InitialHomeState){
+//            Future.delayed(const Duration(seconds: 3), () {
+//              _homeBloc.add(getDataHomeEvent());
+//            });
+//
+//            return buildLoading();
+//          }else{
+//            QuranAcak quran = (state as getDataHomeState).quran_acak;
+//
+//            print(quran);
+//            return MainPage(ratio, quran);
+//          }
+//        },
+//      ),
+//    );
+//  }
 
   //Banner Top
   Widget _topBanner(double ratio) {
@@ -259,16 +369,16 @@ class _HomeUiState extends State<HomeUi> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-            Container(
-              width: ratio * 20,
-              height: ratio * 20,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              child: icons,
+          Container(
+            width: ratio * 20,
+            height: ratio * 20,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10)
             ),
+            child: icons,
+          ),
           SizedBox(height: 10,),
           Text(name, style: TextStyle(fontSize: ratio * 4),)
         ],
@@ -286,13 +396,13 @@ class _HomeUiState extends State<HomeUi> {
         width: double.infinity,
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Theme
-                  .of(context)
-                  .primaryColor, Color(0xff74C6EF)])
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Theme
+                    .of(context)
+                    .primaryColor, Color(0xff74C6EF)])
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -329,9 +439,9 @@ class _HomeUiState extends State<HomeUi> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-              "${quran.acak.id.teks}",
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: ratio * 5, color: Colors.white),),
+                    "${quran.acak.id.teks}",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(fontSize: ratio * 5, color: Colors.white),),
                 ))
           ],
 
@@ -345,48 +455,6 @@ class _HomeUiState extends State<HomeUi> {
       child: CircularProgressIndicator(),
     );
   }
-
-  _getCurrentLocation() async {
-    geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      print(position.latitude);
-      //  _currentPosition = position;
-      _getAddressFromLatLng(position);
-    }).catchError((e) {
-      return 0;
-    });
-  }
-
- _getAddressFromLatLng(Position _currentPosition) async {
-    try {
-      List<Placemark> p = await geolocator.placemarkFromCoordinates(
-          _currentPosition.latitude, _currentPosition.longitude);
-      Placemark place = p[0];
-//      print(place.country);
-//      print(place.position);
-//      print(place.locality);
-//      print(place.administrativeArea);
-//      print(place.postalCode);
-//      print(place.name);
-//      print(place.subAdministrativeArea);
-//      print(place.isoCountryCode);
-//      print(place.subLocality);
-//      print(place.subThoroughfare);
-//      print(place.thoroughfare);
-
-      setState(() {
-        _nowPosition = _currentPosition;
-        city = place.subAdministrativeArea;
-      });
-
-      //  "${place.locality}, ${place.postalCode}, ${place.country}";
-
-    } catch (e) {
-   //   return "error";
-    }
-  }
-
 
   Widget MainPage(double ratio, QuranAcak quran) {
     return SingleChildScrollView(
@@ -422,35 +490,6 @@ class _HomeUiState extends State<HomeUi> {
           SizedBox(height: ratio*10,),
           _infoBottom(ratio, quran)
         ],
-      ),
-    );
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    double ratio = SizeConfig.screenRatio;
-
-    return Container(
-      color: Color(0xffF9F9FB),
-      margin: EdgeInsets.all(ratio * 5),
-      child: BlocBuilder<HomeBloc, HomeState>(
-        bloc: _homeBloc,
-        builder: (context, state){
-
-          if(state is InitialHomeState){
-            Future.delayed(const Duration(seconds: 3), () {
-              _homeBloc.add(getDataHomeEvent());
-            });
-
-            return buildLoading();
-          }else{
-            QuranAcak quran = (state as getDataHomeState).quran_acak;
-
-            print(quran);
-            return MainPage(ratio, quran);
-          }
-        },
       ),
     );
   }

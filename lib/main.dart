@@ -25,19 +25,19 @@ class MyApp extends StatelessWidget {
   DetailQuranRepository _detailQuranRepository = DetailQuranRepository();
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<QuranBloc>(
-          create: (BuildContext context) => QuranBloc(),
-        ),
-        BlocProvider<HomeBloc>(
-          create: (BuildContext context) => HomeBloc(),
-        ),
+//    return MultiBlocProvider(
+//      providers: [
+//        BlocProvider<QuranBloc>(
+//          create: (BuildContext context) => QuranBloc(),
+//        ),
+//        BlocProvider<HomeBloc>(
+//          create: (BuildContext context) => HomeBloc(),
+//        ),
 //        BlocProvider<DetailQuranBloc>(
 //          create: (BuildContext context) => DetailQuranBloc(detailQuranRepository: _detailQuranRepository),
 //        ),
-      ],
-      child: MaterialApp(
+//      ],
+      return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: LoginUi()),
-      )
+//      )
     );
   }
 }
