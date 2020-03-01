@@ -8,7 +8,10 @@ import 'package:permission_handler/permission_handler.dart';
 class LoginUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage(), debugShowCheckedModeBanner: false);
+    return MaterialApp(home: LoginPage(), debugShowCheckedModeBanner: false, theme: ThemeData(
+      primaryColor: Color(0xff6FC6AA),
+      hintColor: Colors.white
+    ),);
   }
 }
 
@@ -68,9 +71,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget _entryField(double ratios, String title, bool isPassword) {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
-      child: TextField(
+      child: TextFormField(
           controller: (isPassword) ? passController : emailController,
           style: new TextStyle(fontSize: 5 * ratios, color: Colors.black),
+          textAlignVertical: TextAlignVertical.center,
           obscureText: isPassword,
           minLines: 1,
           decoration: InputDecoration(
@@ -83,18 +87,23 @@ class _LoginPageState extends State<LoginPage> {
                       Icons.mail,
                       color: Color(0xffEC6059),
                     ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                //borderRadius: BorderRadius.circular(25.0),
+              ),
               //border: InputBorder.none,
 
-//              border: OutlineInputBorder(
-//                  borderSide: BorderSide(color: Colors.blue),
-////                  borderRadius: const BorderRadius.all(
-////                    const Radius.circular(10.0),
-////                  )
-//              ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+//                  borderRadius: const BorderRadius.all(
+//                    const Radius.circular(10.0),
+//                  )
+              ),
               // fillColor: Color(0xfff3f3f4),
               //  labelText: title,
               fillColor: Colors.transparent,
               hintText: title,
+
               filled: true)),
     );
   }
@@ -179,11 +188,11 @@ class _LoginPageState extends State<LoginPage> {
       child: RaisedButton(
         elevation: 5,
         onPressed: routeReplacement,
-        textColor: Colors.white,
+        textColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(ratio * 18),
         ),
-        color: Theme.of(context).primaryColor,
+        color: Colors.white,
         padding: EdgeInsets.all(ratio * 4),
         child: Column(
           children: <Widget>[
@@ -214,6 +223,11 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Checkbox(
                   value: _value1,
+                  activeColor: Colors.white,
+                  checkColor: Theme.of(context).primaryColor,
+                  hoverColor: Colors.white,
+                  focusColor: Colors.white,
+
                   onChanged: (newValue) {
                     setState(() {
                       if (_value1) {
@@ -226,16 +240,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Text(
                   "Remember Me",
-                  style: TextStyle(color: Colors.black26),
+                  style: TextStyle(color: Colors.white60),
                 ),
               ],
             ),
           ),
           GestureDetector(
             onTap: () {},
-            child: Text(
-              "Forgot Password?",
-              style: TextStyle(color: Theme.of(context).primaryColor),
+            child: Container(
+              margin: EdgeInsets.only(right: 15),
+              child: Text(
+                "Forgot Password?",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           )
         ],
@@ -249,6 +266,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
+      backgroundColor: Color(0xff6FC6AA),
       body: Stack(
         children: <Widget>[
           Align(
@@ -279,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Text(
                       "OR CONNECTED",
-                      style: TextStyle(color: Colors.black12, fontSize: 12),
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
                     const SizedBox(
                       height: 10,
@@ -302,7 +320,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           style:
-                              TextStyle(color: Theme.of(context).primaryColor),
+                              TextStyle(color: Colors.white),
                         )),
                     SizedBox(
                       height: 20,
@@ -317,7 +335,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
                 margin: EdgeInsets.only(top: SizeConfig.screenRatio * 30),
                 width: SizeConfig.screenWidth / 3 * 2,
-                child: Image.asset("assets/images/logo.png")),
+                child: Image.asset("assets/images/logo_quran.png")),
           )
         ],
       ),

@@ -42,6 +42,7 @@ class _MainUiState extends State<MainUi> {
         floatingActionButtonLocation:
         FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
           child:  Icon(Icons.add), onPressed: () {},),
 
         bottomNavigationBar: BottomAppBar(
@@ -60,7 +61,7 @@ class _MainUiState extends State<MainUi> {
                     width: sizeRatio * 10,
                     child: Icon(
                       Icons.home,
-                      color: (_selectedBottom == 0) ? Colors.blue : Colors
+                      color: (_selectedBottom == 0) ? Theme.of(context).primaryColor : Colors
                           .black12,
                     )
                 ),),
@@ -71,7 +72,7 @@ class _MainUiState extends State<MainUi> {
                   height: sizeRatio * 20,
                   width: sizeRatio * 25,
                   child: Icon(Icons.calendar_today,
-                      color: (_selectedBottom == 1) ? Colors.blue : Colors
+                      color: (_selectedBottom == 1) ? Theme.of(context).primaryColor : Colors
                           .black12),
                 ),
 //                child: Icon(Icons.calendar_today, color: (_selectedBottom == 1) ? Colors.blue : Colors.black12)
@@ -86,7 +87,7 @@ class _MainUiState extends State<MainUi> {
                   height: sizeRatio * 20,
                   width: sizeRatio * 25,
                   child: Icon(Icons.notifications,
-                      color: (_selectedBottom == 2) ? Colors.blue : Colors
+                      color: (_selectedBottom == 2) ? Theme.of(context).primaryColor : Colors
                           .black12),
                 ),
               ),
@@ -97,7 +98,7 @@ class _MainUiState extends State<MainUi> {
                     height: sizeRatio * 20,
                     width: sizeRatio * 10,
                     child: Icon(Icons.person,
-                        color: (_selectedBottom == 3) ? Colors.blue : Colors
+                        color: (_selectedBottom == 3) ? Theme.of(context).primaryColor : Colors
                             .black12)
                 ),
               ),

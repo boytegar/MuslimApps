@@ -1,12 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:meta/meta.dart';
 import 'package:hive/hive.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:muslimapps/bloc/detail_quran/detail_quran_repository.dart';
-
-
 import './bloc.dart';
 
 class DetailQuranBloc extends HydratedBloc<DetailQuranEvent, DetailQuranState> {

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -30,8 +29,8 @@ class _QuranUiState extends State<QuranUi> {
 
   QuranBloc _quranBloc;
   String ayat = "";
-  Widget _title = Text("List Quran");
-  Icon _searchIcon = new Icon(Icons.search);
+  Widget _title = Text("List Quran", style: TextStyle(color: Colors.white),);
+  Icon _searchIcon = new Icon(Icons.search, color: Colors.white,);
   final TextEditingController _filter = new TextEditingController();
   FocusNode textFocusNode = new FocusNode();
   Box datas;
@@ -96,6 +95,56 @@ class _QuranUiState extends State<QuranUi> {
           },
         );
       },
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: _title,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          new IconButton(
+              icon: _searchIcon,
+              onPressed: () {
+                FocusScope.of(context).requestFocus(textFocusNode);
+                _searchPressed();
+              },
+              color: Colors.white
+          ),
+        ],
+
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: BlocBuilder<QuranBloc, QuranBlocState>(
+          bloc: _quranBloc,
+          builder: (context, state) {
+            if (state is initQuranState) {
+              Future.delayed(const Duration(seconds: 3), () {
+                _quranBloc.add(GetListQuranEvent());
+              });
+            } else if (state is getListState) {
+              _quranBloc.add(InsertListToDbEvent());
+            } else {
+              datas = (state as getListStateFromDb).list_quran_data;
+            }
+            if (datas == null) {
+              return buildLoading();
+            } else {
+              return _listQuran(datas);
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -176,7 +225,7 @@ class _QuranUiState extends State<QuranUi> {
       color: Colors.white10,
       child: ListView.builder(scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: quran. length,
+        itemCount: quran.length,
         itemBuilder: (context, index) {
           ListQuran hasil = quran.getAt(index);
           // return Text("${quran.hasil[index].arti}");
@@ -253,7 +302,7 @@ class _QuranUiState extends State<QuranUi> {
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close);
+        this._searchIcon = new Icon(Icons.close, color: Colors.white);
         this._title = new TextFormField(
           controller: _filter,
           focusNode: textFocusNode,
@@ -272,54 +321,13 @@ class _QuranUiState extends State<QuranUi> {
         );
       } else {
         this._searchIcon = new Icon(Icons.search, color: Colors.white,);
-        this._title = new Text('List Quran');
+        this._title =
+        new Text('List Quran', style: TextStyle(color: Colors.white),);
         //   filteredNames = names;
         _filter.clear();
       }
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: _title,
-        centerTitle: true,
-        actions: <Widget>[
-          new IconButton(
-            icon: _searchIcon,
-            onPressed: () {
-              FocusScope.of(context).requestFocus(textFocusNode);
-              _searchPressed();
-            },
-          ),
-        ],
 
-      ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: BlocBuilder<QuranBloc, QuranBlocState>(
-          bloc: _quranBloc,
-          builder: (context, state) {
-            if (state is initQuranState) {
-              Future.delayed(const Duration(seconds: 3), () {
-                _quranBloc.add(GetListQuranEvent());
-              });
-
-            } else if (state is getListState) {
-              _quranBloc.add(InsertListToDbEvent());
-            } else {
-                datas = (state as getListStateFromDb).list_quran_data;
-            }
-             if(datas==null){
-               return buildLoading();
-             }else{
-               return _listQuran(datas);
-             }
-
-          },
-        ),
-      ),
-    );
-  }
 }
