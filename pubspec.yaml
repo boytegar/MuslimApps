@@ -33,6 +33,7 @@ dependencies:
   hive: ^1.4.1
   hive_flutter: ^0.3.0+2
   google_sign_in: ^4.1.4
+  flutter_facebook_login: ^3.0.0
   flutter_html: ^0.11.1
   #workmanager: ^0.2.1
   #logger: ^0.8.3

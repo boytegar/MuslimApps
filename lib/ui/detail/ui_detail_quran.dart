@@ -67,9 +67,7 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
 
     ScreenUtil.init(
         context, width: width, height: height, allowFontScaling: true);
-
     return Scaffold(
-
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -86,13 +84,13 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
               return loadingBuilder();
             }
             else if(state is getDetailQuranState){
-              print("masuk insert");
+
               _detailQuranBloc.add(getDataEvent(no: widget.text[1].toString(),
                   ayat: widget.text[2].toString()));
               return loadingBuilder();
             }
             else {
-              print("kelaur insert");
+
               var list_surat = (state as  getListDetailQuranState).list_surat;
               return BodyMain(list_surat);
             }
@@ -185,36 +183,12 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
     );
   }
 
-
-//  Widget ListQuranUi() {
-//    return CustomScrollView(
-//      slivers: <Widget>[
-//        SliverAppBar(
-//          leading: IconButton(
-//            icon: Icon(Icons.arrow_back_ios),
-//            onPressed: () => Navigator.pop(context),
-//          ),
-//          title: Container(
-//              margin: EdgeInsets.only(top: 5),
-//              child: Text(widget.text[0].toString())),
-//          centerTitle: true,
-//          pinned: true,
-//          expandedHeight: 210.0,
-//          flexibleSpace: FlexibleSpaceBar(
-//            background: _myDetail(),
-//          ),
-//        ),
-//      ],
-//    );
-//  }
-
-
   Widget _myDetail(ListQuran quran, ScreenUtil screenUtil) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: screenUtil.setHeight(10)),
+      padding: EdgeInsets.only(top: screenUtil.setHeight(80)),
       // height: (SizeConfig.paddingTop + 20).toDouble(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(child: new Text(
               quran.arti,
@@ -232,8 +206,9 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
               fontWeight: FontWeight.w400,
               fontSize: screenUtil.setSp(20)
           )),
+          SizedBox(height: 10,),
           Html(data: quran.keterangan,
-              padding: EdgeInsets.all(screenUtil.setHeight(10)),
+              padding: EdgeInsets.symmetric(horizontal : screenUtil.setHeight(20)),
               defaultTextStyle: TextStyle(
                   color: Colors.white, fontSize: screenUtil.setSp(10)),
               customTextAlign: (elem) {
