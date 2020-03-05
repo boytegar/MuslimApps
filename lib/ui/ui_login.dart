@@ -8,10 +8,8 @@ import 'package:permission_handler/permission_handler.dart';
 class LoginUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage(), debugShowCheckedModeBanner: false, theme: ThemeData(
-      primaryColor: Color(0xff6FC6AA),
-      hintColor: Colors.white
-    ),);
+    return Container(child: LoginPage()
+    );
   }
 }
 
@@ -128,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: new Icon(FontAwesomeIcons.facebookF),
                 ),
                 onPressed: () {
-                  setState(() {});
+
                 }),
           ),
         ),
@@ -151,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: new Icon(FontAwesomeIcons.google),
                 ),
                 onPressed: () {
-                  setState(() {});
+
                 }),
           ),
         ),
@@ -171,10 +169,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(ratio * 4),
                 child: new IconTheme(
                   data: new IconThemeData(color: Colors.white),
-                  child: new Icon(FontAwesomeIcons.twitter),
+                  child: new Icon(FontAwesomeIcons.phone),
                 ),
                 onPressed: () {
-                  setState(() {});
+
                 }),
           ),
         ),

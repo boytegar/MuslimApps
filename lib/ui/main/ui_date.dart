@@ -39,15 +39,12 @@ class _DateUiState extends State<DateUi> {
           TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       prevDaysTextStyle: TextStyle(color: Color(0x88ffffff)),
       nextDaysTextStyle: TextStyle(color: Color(0x88ffffff)),
-
       selectedDateTime: _curDate,
       selectedDayButtonColor: Color(0xff74C6EF),
       //  thisMonthDayBorderColor: Color(0xff74C6EF),
       markedDateCustomShapeBorder: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
       ),
-
-
       markedDateMoreCustomDecoration:
           BoxDecoration(borderRadius: BorderRadius.circular(10)),
       selectedDayTextStyle: TextStyle(color: Colors.white),
@@ -56,6 +53,7 @@ class _DateUiState extends State<DateUi> {
       daysTextStyle: TextStyle(color: Colors.white),
       iconColor: Colors.white,
       headerTextStyle: TextStyle(color: Colors.white, fontSize: ratio * 7),
+
 
       onDayLongPressed: (DateTime dateTime) {},
     );
@@ -119,12 +117,32 @@ class _DateUiState extends State<DateUi> {
           ),
           Container(
             margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: Text(
-              "CALENDAR",
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: ratio * 8,
-                  fontWeight: FontWeight.bold),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  "CALENDAR",
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: ratio * 8,
+                      fontWeight: FontWeight.bold),
+                ),
+//                Row(
+//                  mainAxisSize: MainAxisSize.min,
+//                  children: <Widget>[
+//                    GestureDetector(
+//                      child: Container(
+//                        padding: EdgeInsets.only(right: 10),
+//                          child: Text("Masehi")),
+//                    ),
+//                    GestureDetector(
+//                      child: Container(
+//                          padding: EdgeInsets.only(left: 10),
+//                          child: Text("Hijriah")),
+//                    )
+//                  ],
+//                )
+              ],
             ),
           ),
           SizedBox(

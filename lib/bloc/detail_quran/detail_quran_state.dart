@@ -22,3 +22,4 @@ class getListDetailQuranState extends DetailQuranState{
   List<Object> get props => [list_surat];
 }
 
+

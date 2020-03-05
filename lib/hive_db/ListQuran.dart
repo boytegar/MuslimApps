@@ -67,3 +67,5 @@ class ListSurat extends HiveObject {
 }
 
 
+
+

@@ -26,3 +26,4 @@ class getDataEvent extends DetailQuranEvent{
 
 }
 
+

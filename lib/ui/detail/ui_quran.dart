@@ -5,6 +5,7 @@ import 'package:muslimapps/bloc/quran/QuranBloc.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocEvent.dart';
 import 'package:muslimapps/bloc/quran/QuranBlocState.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
+import 'package:muslimapps/ui/detail/ui_bookmark.dart';
 import 'package:muslimapps/ui/detail/ui_detail_quran.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -38,6 +39,7 @@ class _QuranUiState extends State<QuranUi> {
   @override
   void dispose() {
     _quranBloc?.close();
+ //   Hive.close();
     super.dispose();
   }
 
@@ -119,6 +121,19 @@ class _QuranUiState extends State<QuranUi> {
               },
               color: Colors.white
           ),
+          IconButton(
+            icon: Icon(Icons.bookmark_border),
+            onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BookmarkPage(),
+                      fullscreenDialog: true
+                  ));
+            },
+            color: Colors.white,
+          )
         ],
 
       ),
