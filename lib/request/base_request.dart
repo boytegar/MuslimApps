@@ -1,4 +1,6 @@
+import 'package:muslimapps/model/City.dart';
 import 'package:muslimapps/model/DetailQuran.dart';
+import 'package:muslimapps/model/JadwalSolat.dart';
 import 'package:muslimapps/model/ListDetailQuran.dart';
 import 'package:muslimapps/model/Quran.dart';
 import 'package:muslimapps/model/QuranAcak.dart';
@@ -18,5 +20,9 @@ abstract class RestClient {
   Future<DetailQuran> getDetailQuran(@Path("id") String id);
   @GET("/surat/{no}/ayat/{ayat}")
   Future<ListDetailQuran> getDetailListQuran(@Path("no") String no, @Path("ayat") String ayat);
+  @GET("/kota")
+  Future<City> getListCity();
+  @GET("/kota/{id_kota}/tanggal/{tanggal}") //format tanggal "yyyy-MM-dd"
+  Future<JadwalSolat> getJadwalSolat(@Path("id_kota") String id_kota, @Path("tanggal") String tanggal);
 }
 

@@ -10,6 +10,8 @@ import 'bloc/detail_quran/detail_quran_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
+import 'hive_db/ListSurat.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = await HydratedBlocDelegate.build();

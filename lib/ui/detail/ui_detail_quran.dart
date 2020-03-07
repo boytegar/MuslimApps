@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/rich_text_parser.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:muslimapps/bloc/detail_quran/bloc.dart';
 import 'package:muslimapps/bloc/detail_quran/detail_quran_repository.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
+import 'package:muslimapps/hive_db/ListSurat.dart';
 
 class DetailQuranPage extends StatelessWidget {
   DetailQuranRepository _detailQuranRepository = DetailQuranRepository();

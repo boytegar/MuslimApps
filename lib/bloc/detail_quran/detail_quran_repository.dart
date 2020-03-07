@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
+import 'package:muslimapps/hive_db/ListSurat.dart';
 import 'package:muslimapps/request/base_request.dart';
 
 class DetailQuranRepository{

@@ -88,4 +88,41 @@ class _RestClient implements RestClient {
     final value = ListDetailQuran.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getListCity() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request('/kota',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = City.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  getJadwalSolat(id_kota, tanggal) async {
+    ArgumentError.checkNotNull(id_kota, 'id_kota');
+    ArgumentError.checkNotNull(tanggal, 'tanggal');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/kota/$id_kota/tanggal/$tanggal',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = JadwalSolat.fromJson(_result.data);
+    return Future.value(value);
+  }
 }
