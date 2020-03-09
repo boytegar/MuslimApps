@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:muslimapps/bloc/detail_quran/bloc.dart';
 import 'package:muslimapps/bloc/detail_quran/detail_quran_repository.dart';
+import 'package:muslimapps/hive_db/Bookmark.dart';
 import 'package:muslimapps/hive_db/ListQuran.dart';
 import 'package:muslimapps/hive_db/ListSurat.dart';
 
@@ -46,14 +47,13 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
   @override
   void dispose() {
     _detailQuranBloc.close();
-   // Hive.close();
+    // Hive.close();
+    Hive.box("bookmark").close();
     super.dispose();
   }
 
-  void saveBookmark(String status) async{
-    await Hive.openBox("bookmark").then((value){
-
-    });
+  void saveBookmark(String status) async {
+    await Hive.openBox("bookmark").then((value) {});
   }
 
 //
@@ -149,9 +149,8 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
                 9: '۹'
               };
               ListSurat data = list_surat.getAt(index);
-
               String status_bookmark = data.bookmark;
-
+              var bookmark = Hive.box("bookmark");
               return ListTile(
                 title: Text(
                   data.teks_arab,
@@ -180,32 +179,40 @@ class _DetailQuranUiState extends State<DetailQuranUi> {
                 ),
                 trailing: (status_bookmark == "true")
                     ? GestureDetector(
-                  onTap: (){
-                    data.bookmark = "false";
-                    data.save();
-                    setState(() {
-                      status_bookmark = "false";
-                    });
-                  },
-                      child: Icon(
+                        onTap: () {
+                          data.bookmark = "false";
+                          data.save();
+                          bookmark.delete("${data.surat}-${data.id}");
+                          setState(() {
+                            status_bookmark = "false";
+                          });
+                        },
+                        child: Icon(
                           Icons.bookmark,
                           size: screenUtil.setHeight(25),
-                  color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).primaryColor,
                         ),
-                    )
+                      )
                     : GestureDetector(
-                  onTap: (){
-                    data.bookmark = "true";
-                    data.save();
-                    setState(() {
-                      status_bookmark = "true";
-                    });
-                  },
-                      child: Icon(
+                        onTap: () {
+                          data.bookmark = "true";
+                          data.save();
+                          bookmark.put(
+                              "${data.surat}-${data.id}",
+                              Bookmark(
+                                  keys: "${data.surat}-${data.id}",
+                                  ayat: data.id,
+                                  surat: data.surat,
+                                  nama: "${quran.nama} (${quran.asma})"));
+                          setState(() {
+                            status_bookmark = "true";
+                          });
+                        },
+                        child: Icon(
                           Icons.bookmark_border,
                           size: screenUtil.setHeight(25),
                         ),
-                    ),
+                      ),
               );
             },
             childCount: list_surat.length,

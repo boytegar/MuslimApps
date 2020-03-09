@@ -20,6 +20,7 @@ class DetailQuranBloc extends HydratedBloc<DetailQuranEvent, DetailQuranState> {
       String no = event.no;
       try {
         await Hive.openBox("surat_$no");
+        await Hive.openBox("bookmark");
       } catch (e, s) {
         print(s);
         log("ERROR", name: "$e -- $s");

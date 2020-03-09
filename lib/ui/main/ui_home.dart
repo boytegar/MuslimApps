@@ -44,7 +44,7 @@ class _HomeUiState extends State<HomeUi> {
     ButtonMenu(0, 'Prayer Time',
         Icon(FontAwesomeIcons.mosque, color: Color(0xffF65D53),
         ),
-        "false"
+        "true"
     ),
     ButtonMenu(1, 'Al-Quraan',
         Icon(FontAwesomeIcons.quran, color: Color(0xffE0A84E),
