@@ -1,6 +1,6 @@
 # muslimapps
 
-Market
+MuslimApps
 
 ## Getting Started
 
