@@ -1,13 +1,15 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:muslimapps/bloc/home/home_repository.dart';
 import 'package:muslimapps/model/QuranAcak.dart';
-import 'package:muslimapps/request/base_request.dart';
 
 import 'bloc.dart';
 
 class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
- // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  final HomeRepository homeRepository;
+
+  HomeBloc({this.homeRepository});
 
   @override
   HomeState get initialState => super.initialState ?? InitialHomeState();
@@ -16,19 +18,11 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(
     HomeEvent event,
   ) async* {
-    final dio = Dio(); // Provide a dio instance
-    final client = RestClient(dio);
 
     if (event is getDataHomeEvent) {
-      QuranAcak quran_acak = await client.getQuranAcak();
+      QuranAcak quranAcak = await homeRepository.getQuranAcak();
 
-     // print(pos.latitude.toString());
-  //    log('data: ${pos.latitude}');
-
-
-   //   log('data: $kota');
-
-      yield getDataHomeState(quran_acak: quran_acak);
+      yield getDataHomeState(quran_acak: quranAcak);
     }
   }
 

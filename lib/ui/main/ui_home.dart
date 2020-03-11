@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:muslimapps/bloc/home/bloc.dart';
+import 'package:muslimapps/bloc/home/home_repository.dart';
 import 'package:muslimapps/helper/SizeConfig.dart';
 import 'package:muslimapps/model/ButtonMenu.dart';
 import 'package:muslimapps/model/QuranAcak.dart';
@@ -15,10 +16,11 @@ import 'package:muslimapps/ui/detail/ui_quran.dart';
 
 
 class HomePageUI extends StatelessWidget {
+  HomeRepository homeRepository = HomeRepository();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc(),
+      create: (context) => HomeBloc(homeRepository: homeRepository),
       child: HomeUi(),
     );
   }
